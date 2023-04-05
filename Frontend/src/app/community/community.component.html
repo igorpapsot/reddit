@@ -1,0 +1,48 @@
+<div class="row" [hidden]="community.suspended">
+    <div class="col-md-10 offset-md-1" >
+        <div class="card post" style="border-color: #8b0000; border-radius: 0%;">     
+            <div class="card-header-sm postBar">
+                <div class="row">
+                    <div class="col-md-10"style="margin-top: 6px;">
+                        &nbsp;<a href="#" >{{community.name}}</a>
+                    </div>
+                    <div>
+                        <!-- <button type="submit" class="btn btn-danger btn-sm" style="margin: 5px; margin-left: 45px;" (click)="delete()">Delete</button> -->
+                    </div>
+                </div>
+                
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <p class="card-text">{{community.description}}</p>
+                </div>
+                
+            </div>
+            <div class="card-footer" *ngIf="store.role === 'ROLE_ADMIN' ">
+                <div class="row">
+                    <div class="col-md-1">
+                        <label for="reason">Reason</label>
+                    </div> 
+                    <div class="col-md-3">
+                        <form #userForm="ngForm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="reason" required
+                                        [(ngModel)]="reason" name="reason"
+                                        #suspendedReason="ngModel">
+                                <div [hidden]="suspendedReason.valid || !suspendedReason.touched"
+                                        class="alert alert-danger">
+                                        Reason is required
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-sm" style="margin-bottom: 15px;" [disabled]="!userForm.form.valid" (click)="suspend()">Suspend</button>
+                </div>
+            </div>
+        </div>
+        <br/>
+    </div>
+</div>

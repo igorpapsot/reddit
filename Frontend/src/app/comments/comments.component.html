@@ -1,0 +1,24 @@
+<div  *ngIf="store.loginStatus === true"  class="row">
+    <div class="col-10">
+        <form #commentForm="ngForm" >
+            <div class="form-group">
+                <input type="text" class="form-control" id="comment" required
+                [(ngModel)]="comment.text" name="comment" placeholder="Add a comment..."
+                #text="ngModel">
+                <div [hidden]="text.valid || !text.touched"
+                        class="alert alert-danger">
+                        Text is required
+                </div>
+            </div>
+        </form>
+    </div>    
+    <div class="col-2" [hidden] = "text.pristine">
+        <button type="submit" class="btn btn-success btn-sm" style="margin-bottom: 15px;" [disabled]="!commentForm.form.valid" (click)="postComment()">Comment</button>
+    </div>
+</div>
+
+
+<div *ngFor="let c of comments | async; index as i; first as isFirst">
+    <app-comment [comment] = "c"></app-comment>
+</div>
+

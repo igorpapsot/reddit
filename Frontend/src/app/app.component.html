@@ -1,0 +1,11 @@
+<nav class="navbar navbar-expand-lg green rounded-bottom">
+    <div class="nav mr-auto">
+      <a class="navbar-brand reddit" href="#" routerLink="/" routerLinkActive="active">Reddit</a>
+      <a class="nav-item nav-link white" href="#" routerLink="/communities" routerLinkActive="active">Communities</a>
+      <a class="nav-item nav-link white" href="#" routerLink="/register" routerLinkActive="active" *ngIf="store.loginStatus === false">Sign up</a>
+      <a class="nav-item nav-link white" href="#" routerLink="/login" routerLinkActive="active" *ngIf="store.loginStatus === false">Sign in</a>
+      <a class="nav-item nav-link white" href="#"  routerLinkActive="active" routerLink="/logOut"  *ngIf="store.loginStatus === true">Log out</a>
+      <a class="nav-item nav-link white" href="#"  routerLinkActive="active" routerLink="/account"  *ngIf="store.loginStatus === true">Account</a>
+    </div>
+</nav>
+<router-outlet></router-outlet>

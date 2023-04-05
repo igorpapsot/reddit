@@ -1,0 +1,54 @@
+<div class="row" [hidden]="deleted">
+    <div class="col-md-10 offset-md-1">
+        <div class="card post" style="border-color: #8b0000; border-radius: 0%;">     
+            <div class="card-header-sm postBar">
+                <div class="row">
+                    <div class="col-md-9">
+                        &nbsp; {{post.title}}
+                    </div>
+                    <div class="col">
+                        <a href="#">{{community.name}}</a>
+                    </div>
+                    <div class="col">
+                        <span class="badge badge-success" style="margin-bottom: 6px;">{{flair.name}}</span>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{post.text}}</p>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-success" style="margin: 5px; margin-left: 20px;" (click)="upVote()">▲</button>
+                    <br/>
+                    <span class="badge badge-white" style="margin-left: 33px;">{{post.karma}}</span>
+                    <br/>
+                    <button type="submit" class="btn btn-danger" style="margin: 5px; margin-left: 20px;" (click)="downVote()">▼</button>
+                </div>
+                <div class="col-md-11">
+                    <img class="card-img-bottom" src="/assets/img/Image.jpg" alt="Post image" style="max-height: 100px;">
+                </div> 
+            </div>
+
+            <div class="row" *ngIf="store.username === post.user.username">
+                
+                <div class="col-md-2 offset-md-8">
+                    <app-update-post-popup [post] = "post" [flair] = "flair" [community] = "community"></app-update-post-popup>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-danger btn-sm" style="margin: 5px;" (click)="delete()">Delete</button>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-secondary btn-sm" style="margin-bottom: 15px;" (click)="showComments()">Comments</button>
+                <app-comments [post] = "post" [hidden]="statusComments"></app-comments>
+            </div>
+            
+        </div>
+        <br/>
+    </div>
+</div>
+

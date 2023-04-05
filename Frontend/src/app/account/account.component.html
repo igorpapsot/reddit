@@ -1,0 +1,134 @@
+<br/>
+<div class="row">
+    <div class="col-md-2 offset-md-2">
+        <h4>Karma: {{user.karma}}</h4>
+    </div>
+</div>
+<br/>
+<div>
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <h4>Displayed name:</h4>
+        </div>
+        <div class="col-md-3">
+            <form #displayedNameForm="ngForm" >
+                <div class="form-group">
+                    <input type="text" class="form-control" id="displayedName"
+                      required
+                      [(ngModel)]="user.displayName" name="displayedName"
+                      #displayedName="ngModel">
+                    <div [hidden]="displayedName.valid || !displayedName.touched"
+                      class="alert alert-danger">
+                      Displayed name is required
+                    </div>
+                  </div>
+            </form>
+        </div>
+        <div class="col-md-3 align-bottom">
+            <button type="button" class="btn btn-success btn-block" [disabled]="!displayedNameForm.form.valid" (click)="changeDisplayName()">Change</button>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <h4 style="color: red;">{{statusDisplayName}}</h4>
+        </div>      
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <h4>Description:</h4>
+        </div>
+        <div class="col-md-3">
+            <form #descriptionForm="ngForm" >
+                <div class="form-group">
+                    <input type="text" class="form-control" id="description" required
+                          [(ngModel)]="user.description" name="description"
+                          #description="ngModel">
+                    <div [hidden]="description.valid || !description.touched"
+                          class="alert alert-danger">
+                          Description is required
+                    </div>   
+                </div>
+            </form>
+        </div>
+        <div class="col-md-3 align-bottom">
+            <button type="button" class="btn btn-success btn-block" [disabled]="!descriptionForm.form.valid" (click)="changeDescription()">Change</button>
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <h4 style="color: red;">{{statusDescription}}</h4>
+        </div>        
+    </div>
+</div>
+
+<br/>
+<br/>
+
+<form #passwordForm="ngForm" >
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <h4>Old Password:</h4>
+        </div>
+        <div class="col-md-3">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="oldPassword" required
+                          [(ngModel)]="changePasswordDTO.password" name="oldPassword"
+                          #oldPassword="ngModel">
+                    <div [hidden]="oldPassword.valid || !oldPassword.touched"
+                          class="alert alert-danger">
+                          Password is required
+                    </div>       
+              </div>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <h4>New password:</h4>
+        </div>
+        <div class="col-md-3">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="newPassword" required
+                          [(ngModel)]="changePasswordDTO.newPassword" name="newPassword"
+                          #newPassword="ngModel">
+                    <div [hidden]="newPassword.valid || !newPassword.touched"
+                          class="alert alert-danger">
+                          Password is required
+                    </div>       
+                </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 offset-md-2">
+            <h4>Repeat new Password:</h4>
+        </div>
+        <div class="col-md-3">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="repeatPassword" required
+                          [(ngModel)]="changePasswordDTO.repeatPassword" name="repeatPassword"
+                          #repeatPassword="ngModel">
+                    <div [hidden]="newPassword.value == repeatPassword.value || !repeatPassword.touched" 
+                          class="alert alert-danger">
+                          Password does not match
+                    </div>       
+              </div>
+        </div>  
+    </div>   
+    <h4 style="color: red;">{{statusPassword}}</h4>
+    <div class="row">
+        <div class="col-md-3 offset-md-4">
+            <button type="button" class="btn btn-success btn-block" [disabled]="!passwordForm.form.valid" (click)="changePassword()">Change</button>
+        </div>
+    </div>
+
+
+</form>
+
+

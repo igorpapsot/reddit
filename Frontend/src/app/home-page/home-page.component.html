@@ -1,0 +1,7 @@
+<br/>
+<app-create-post-popup *ngIf="store.loginStatus === true"></app-create-post-popup>
+<br/>
+
+<div *ngFor="let post of posts | async; index as i; first as isFirst">
+    <app-post [title] = "post.title" [id] = "post.id" [post]="post" [flair] = "post.flair" [community] = "post.community"></app-post>
+</div>

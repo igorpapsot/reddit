@@ -1,0 +1,51 @@
+.green {
+    background-color: #789922;
+}
+
+.reddit {
+    color: #8b0000;
+    font-weight: bold;
+}
+
+.white {
+    color: white;
+}
+
+.bg {
+    background: rgb(254,215,176);
+    background: -moz-linear-gradient(180deg, rgba(254,215,176,1) 0%, rgba(255,255,238,1) 50%, rgba(254,215,176,1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(254,215,176,1) 0%, rgba(255,255,238,1) 50%, rgba(254,215,176,1) 100%);
+    background: linear-gradient(90deg, rgba(254,215,176,1) 0%, rgba(255,255,238,1) 50%, rgba(254,215,176,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fed7b0",endColorstr="#fed7b0",GradientType=1);
+}
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #8b0000;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.postBar {
+    background-color: #fca;
+}
+
+.post {
+    background-color: #fff;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.modal{
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .modal-backdrop{
+    position: relative;
+  }

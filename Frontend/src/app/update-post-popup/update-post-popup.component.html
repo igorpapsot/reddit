@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-md-3 offset-md-1">
+        <button type="submit" class="btn btn-success btn-sm" style="margin: 5px;" (click)="openLg(content)">Edit post</button>
+    </div>
+  </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Edit post</h4>
+      <button type="button" class="btn" (click)="modal.dismiss('Close click')">X</button>
+    </div>
+    <div class="modal-body">
+      <div class="containter">
+        <form #postForm="ngForm">
+  
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+                  <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" required
+                              [(ngModel)]="post.title" name="title"
+                              #title="ngModel">
+                        <div [hidden]="title.valid || !title.touched"
+                              class="alert alert-danger">
+                              Title is required
+                        </div>
+                  </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+                  <div class="form-group">
+                        <label for="text">Text</label>
+                        <input type="text" class="form-control" id="text" required
+                              [(ngModel)]="post.text" name="text"
+                              #text="ngModel">
+                        <div [hidden]="text.valid || !text.touched"
+                              class="alert alert-danger">
+                              Text is required
+                        </div>
+                  </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+                  <div class="form-group">
+                    <label for="flair">Flair</label>
+                    <select class="form-control" id="flair" required
+                          [(ngModel)]="flair.id" name="flairId"
+                          #flairId="ngModel">
+                          <option *ngFor="let flair of flairs | async; index as i; first as isFirst " [value] = "flair.id">{{flair.name}}</option>
+                    </select>
+                    <div [hidden]="flairId.valid || !flairId.touched"
+                          class="alert alert-danger">
+                          Flair is required
+                    </div>
+                  </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+                  <div class="form-group">
+                          <label for="community">Community</label>
+                          <select class="form-control" id="community" required
+                                [(ngModel)]="community.id" name="communityId"
+                                #communityId="ngModel">
+                                <option *ngFor="let community of communities | async; index as i; first as isFirst" [value] = "community.id">{{community.name}}</option>
+                          </select>
+                          <div [hidden]="communityId.valid || !communityId.touched"
+                                class="alert alert-danger">
+                                Community is required
+                          </div>
+                  </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+                  <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="text" class="form-control" id="image" required
+                              [(ngModel)]="post.imagePath" name="image"
+                              #image="ngModel">
+                        <div [hidden]="image.valid || !image.touched"
+                              class="alert alert-danger">
+                              Image is required
+                        </div>
+                  </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+                  <button type="submit" class="btn btn-success btn-block" [disabled]="!postForm.form.valid" (click)="editPost() ; modal.dismiss('Close click');">Edit</button>
+            </div>
+          </div>
+  
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  

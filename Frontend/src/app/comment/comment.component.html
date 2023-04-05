@@ -1,0 +1,48 @@
+<div class="card" [hidden]="deleted">
+    <div class="card-header-sm row">
+      <div class="col-9">
+        &nbsp;&nbsp;{{name}}
+      </div>     
+      <div class="col" *ngIf="store.username === comment.user.username">
+        <button type="submit" class="btn btn-danger btn-sm" style="margin: 5px;" (click)="delete()">Delete</button>
+        <button type="submit" class="btn btn-secondary btn-sm" style="margin: 5px;" (click)="edit()">Edit</button>
+      </div>
+    </div>
+    <hr style="margin: 0px; padding:0px;"/>
+    <div class="card-body row">
+
+      <div class="col-1">
+        <button type="submit" class="btn btn-success" (click)="upVote()">▲</button>
+        <br/>
+        <span class="badge badge-white" style="margin-left: 13px;">{{comment.karma}}</span>
+        <br/>
+        <button type="submit" class="btn btn-danger" (click)="downVote()">▼</button>
+      </div>
+
+      <div class="col">
+        <p class="card-text">{{comment.text}}</p>
+      </div>
+    
+    </div>
+    <div class="card-footer-sm" *ngIf="store.username === comment.user.username"> 
+      <div [hidden]="editStatus" style="margin: 10px;">
+        <hr>
+        <form #commentForm="ngForm" >
+          <div class="form-group">
+              <input type="text" class="form-control" id="comment" required
+              [(ngModel)]="comment.text" name="comment" placeholder="Text"
+              #text="ngModel">
+              <div [hidden]="text.valid || !text.touched"
+                      class="alert alert-danger">
+                      Text is required
+              </div>
+          </div>
+        </form>
+        <div>
+          <button type="submit" class="btn btn-success btn-sm" style="margin-bottom: 15px;" [disabled]="!commentForm.form.valid" (click)="editComment()">Edit comment</button>
+        </div>
+      </div>
+    </div>
+</div>
+<br/>
+

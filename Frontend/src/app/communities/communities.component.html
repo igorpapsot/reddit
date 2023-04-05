@@ -1,0 +1,25 @@
+<br/>
+<div class="container">
+    <form #searchForm="ngForm">
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-group">
+              <input type="text" class="form-control" id="username"
+                required
+                [(ngModel)]="search" name="name"
+                #name="ngModel" placeholder="Search">
+            </div>
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-success btn-block" (click)="searchF()">Search</button>
+          </div>
+        </div>
+    </form>    
+</div>
+<app-create-community-popup *ngIf="store.loginStatus === true"></app-create-community-popup>
+<br/>
+<div *ngFor="let community of communities | async; index as i; first as isFirst">
+    <app-community [community] = "community"></app-community>
+</div>
