@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.informatika.svtprojekat.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
@@ -25,13 +24,9 @@ public class Community implements Serializable {
     private Integer id;
 
     @Column(name = "name", nullable = false)
-    @Size(min = 5, max = 25, message
-            = "Name must be between 5 and 25 characters")
     private String name;
 
     @Column(name = "description", nullable = false)
-    @Size(min = 10, max = 200, message
-            = "Description must be between 10 and 200 characters")
     private String description;
 
     @Column(name = "creation_date", nullable = false)
