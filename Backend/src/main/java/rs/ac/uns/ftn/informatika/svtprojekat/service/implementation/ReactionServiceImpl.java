@@ -48,7 +48,7 @@ public class ReactionServiceImpl implements ReactionService {
     @Override
     public boolean checkIfReactionExists(Integer userId, Post post) {
         User user = userService.findOne(userId);
-        if(repository.findByUserAndPost(user, post) == null) {
+        if(repository.findByUserAndPostId(user, post.getId()) == null) {
             return  false;
         }
         else  return  true;
@@ -97,7 +97,7 @@ public class ReactionServiceImpl implements ReactionService {
     @Override
     public void undoReaction(Integer userId, Post post) {
         User user = userService.findOne(userId);
-        Reaction reaction = repository.findByUserAndPost(user, post);
+        Reaction reaction = repository.findByUserAndPostId(user, post.getId());
         repository.deleteById(reaction.getId());
     }
 
@@ -110,7 +110,7 @@ public class ReactionServiceImpl implements ReactionService {
 
     @Override
     public int getKarma(Post post) {
-        List<Reaction> reactions = repository.findAllByPost(post);
+        List<Reaction> reactions = repository.findAllByPostId(post.getId());
         int karma = 0;
 
         for(Reaction r : reactions) {
@@ -142,6 +142,6 @@ public class ReactionServiceImpl implements ReactionService {
 
     @Override
     public void deleteAllbyPost(Post post) {
-        repository.deleteAllByPost(post);
+        repository.deleteAllByPostId(post.getId());
     }
 }

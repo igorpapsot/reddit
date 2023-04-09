@@ -17,7 +17,7 @@ public interface PostService {
 
     Post save(Post post);
 
-    void remove(Integer id);
+    void remove(String id);
 
     void upVote(Integer userId, Post post);
 

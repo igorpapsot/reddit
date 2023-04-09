@@ -12,17 +12,17 @@ import java.util.List;
 @Repository
 public interface ReactionRepository extends JpaRepository<Reaction, Integer> {
 
-    Reaction findByUserAndPost(User user, Post post);
+    Reaction findByUserAndPostId(User user, String postId);
 
     Reaction findByUserAndComment(User user, Comment comment);
 
-    List<Reaction> findAllByPost(Post post);
+    List<Reaction> findAllByPostId(String postId);
 
     List<Reaction> findAllByComment(Comment comment);
 
     List<Reaction> findAllByUser(User user);
 
-    void deleteAllByPost(Post post);
+    void deleteAllByPostId(String postId);
 
     void deleteAllByComment(Comment comment);
 }

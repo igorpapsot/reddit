@@ -24,12 +24,6 @@ public class Flair implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "community_flair",
-            joinColumns = @JoinColumn(name = "flair_id", referencedColumnName = "flair_id"),
-            inverseJoinColumns = @JoinColumn(name = "community_id", referencedColumnName = "community_id"))
-    private Set<Community> communities = new HashSet<Community>();
-
     public Flair() {
     }
 

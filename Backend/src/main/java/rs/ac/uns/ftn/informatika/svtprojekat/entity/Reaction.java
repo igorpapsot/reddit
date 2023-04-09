@@ -33,9 +33,8 @@ public class Reaction implements Serializable {
     @JoinColumn(name = "comment_id", referencedColumnName = "comment_id")
     private Comment comment;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "post_id")
-    private Post post;
+    @Column(name = "post_id", unique = true, nullable = false)
+    private String postId;
 
     public Reaction() {
     }

@@ -19,9 +19,8 @@ public class Rule {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "community_id", nullable = false)
-    private Community community;
+    @Column(name = "community_id", unique = true, nullable = false)
+    private String communityId;
 
     public Rule(){
 

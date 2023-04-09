@@ -24,7 +24,7 @@ public class PostDTOandorid {
 
     private String communityName;
 
-    private Integer communityId;
+    private String communityId;
 
     private Integer flairId;
 
@@ -50,7 +50,7 @@ public class PostDTOandorid {
     }
 
     public PostDTOandorid(Post post) {
-        this(post.getId(), post.getTitle(), post.getText(), post.getCreationDate(), post.getImagePath(), new UserDTO(post.getUser()), new FlairDTO(post.getFlair()), new CommunityDTO(post.getCommunity()) );
+        //this(post.getId(), post.getTitle(), post.getText(), post.getCreationDate(), post.getImagePath(), new UserDTO(post.getUser()), new FlairDTO(post.getFlair()), new CommunityDTO(post.getCommunity()) );
 
     }
 }

@@ -1,48 +1,47 @@
 package rs.ac.uns.ftn.informatika.svtprojekat.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
 @Data
-@Entity
-@Table(name = "post")
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(indexName = "posts")
+@Setting(settingPath = "/analyzers/serbianAnalyzer.json")
 public class Post implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "post_id", unique = true, nullable = false)
-    private Integer id;
+    private String id;
 
-    @Column(name = "title", nullable = false)
+    @Field(type = FieldType.Keyword)
     private String title;
 
-    @Column(name = "text", nullable = false)
+    @Field(type = FieldType.Text)
     private String text;
 
-    @Column(name = "creation_date", nullable = false)
+    @Field(type = FieldType.Date)
     private LocalDate creationDate;
 
-    @Column(name = "image_path", nullable = false)
-    private String imagePath;
+    @Field(type = FieldType.Keyword)
+    private Integer userId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "flair_id", referencedColumnName = "flair_id", nullable = false)
+    @Field(type = FieldType.Keyword)
     private Flair flair;
 
-    @ManyToOne
-    @JoinColumn(name = "community_id", nullable = false)
-    private Community community;
-
-    public Post() {
-    }
+    @Field(type = FieldType.Integer)
+    private String communityId;
 
     private String keywords;
 

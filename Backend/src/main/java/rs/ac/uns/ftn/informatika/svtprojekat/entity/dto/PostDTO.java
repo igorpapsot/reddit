@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 public class PostDTO implements Serializable {
 
-    private Integer id;
+    private String id;
 
     private String title;
 
@@ -19,30 +19,30 @@ public class PostDTO implements Serializable {
 
     private String imagePath;
 
-    private UserDTO user;
+    private Integer userId;
 
     private FlairDTO flair;
 
-    private CommunityDTO community;
+    private String communityId;
 
     private int karma;
 
     public PostDTO() {
     }
 
-    public PostDTO(Integer id, String title, String text, LocalDate creationDate, String imagePath, UserDTO user, FlairDTO flair, CommunityDTO community) {
+    public PostDTO(String id, String title, String text, LocalDate creationDate, Integer userId, FlairDTO flair, String communityId) {
         this.id = id;
         this.title = title;
         this.text = text;
         this.creationDate = creationDate;
         this.imagePath = imagePath;
-        this.user = user;
+        this.userId = userId;
         this.flair = flair;
-        this.community = community;
+        this.communityId = communityId;
     }
 
     public PostDTO(Post post) {
-        this(post.getId(), post.getTitle(), post.getText(), post.getCreationDate(), post.getImagePath(), new UserDTO(post.getUser()), new FlairDTO(post.getFlair()), new CommunityDTO(post.getCommunity()) );
+        this(post.getId(), post.getTitle(), post.getText(), post.getCreationDate(), post.getUserId(), new FlairDTO(post.getFlair()), post.getCommunityId());
 
     }
 }

@@ -1,95 +1,54 @@
 package rs.ac.uns.ftn.informatika.svtprojekat.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
+
 @Data
-@Entity
-@Table(name = "community")
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(indexName = "communities")
+@Setting(settingPath = "/analyzers/serbianAnalyzer.json")
 public class Community implements Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "community_id", unique = true, nullable = false)
-    private Integer id;
+    private String id;
 
-    @Column(name = "name", nullable = false)
+    @Field(type = FieldType.Keyword)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Field(type = FieldType.Text)
     private String description;
 
-    @Column(name = "creation_date", nullable = false)
+    @Field(type = FieldType.Date)
     private String creationDate;
 
-    @Column(name = "community_is_suspended", nullable = false)
+    @Field(type = FieldType.Keyword)
     private boolean isSuspended;
 
-    @Column(name = "suspended_reason")
+    @Field(type = FieldType.Keyword)
     private String suspendedReason;
 
-    @ManyToMany(mappedBy="communities")
     private List<Flair> flairs;
 
-    @OneToMany(cascade = {ALL}, fetch = LAZY, mappedBy = "community")
     private Set<Moderator> moderators = new HashSet<Moderator>();
 
-    @OneToMany(cascade = {ALL}, fetch = LAZY, mappedBy = "community")
     private Set<Post> posts = new HashSet<Post>();
 
-    @OneToMany(cascade = {ALL}, fetch = LAZY, mappedBy = "community")
-    private Set<Rule> rules = new HashSet<>();
-
-    public Community() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Community)) return false;
-        Community community = (Community) o;
-        return isSuspended() == community.isSuspended() && Objects.equals(getId(), community.getId()) && Objects.equals(getName(), community.getName()) && Objects.equals(getDescription(), community.getDescription()) && Objects.equals(getCreationDate(), community.getCreationDate()) && Objects.equals(getSuspendedReason(), community.getSuspendedReason()) && Objects.equals(getFlairs(), community.getFlairs()) && Objects.equals(getRules(), community.getRules());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(), getCreationDate(), isSuspended(), getSuspendedReason(), getFlairs(), getRules());
-    }
-
-    @Override
-    public String toString() {
-        return "Community{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                ", isSuspended=" + isSuspended +
-                ", suspendedReason='" + suspendedReason + '\'' +
-                '}';
-    }
-
-    //    public void add(Post post) {
-//        if (post.getCommunity() != null)
-//            post.getCommunity().getPosts().remove(post);
-//        post.setCommunity(this);
-//        getPosts().add(post);
-//    }
-//
-//    public void add(Rule rule) {
-//        if (rule.getCommunity() != null)
-//            rule.getCommunity().getRules().remove(rule);
-//        rule.setCommunity(this);
-//        getRules().add(rule);
-//    }
 
 }

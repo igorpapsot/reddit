@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 public class CommunityDTO implements Serializable {
 
-    private Integer id;
+    private String id;
 
     private String name;
 
@@ -28,7 +28,7 @@ public class CommunityDTO implements Serializable {
     public CommunityDTO() {
     }
 
-    public CommunityDTO(Integer id, String name, String description, String creationDate, boolean isSuspended, String suspendedReason, Set<Moderator> moderatorSet) {
+    public CommunityDTO(String id, String name, String description, String creationDate, boolean isSuspended, String suspendedReason, Set<Moderator> moderatorSet) {
         this.id = id;
         this.name = name;
         this.description = description;

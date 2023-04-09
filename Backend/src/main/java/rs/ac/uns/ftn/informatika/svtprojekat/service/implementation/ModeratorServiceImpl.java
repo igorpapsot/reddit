@@ -43,6 +43,6 @@ public class ModeratorServiceImpl implements ModeratorService {
 
     @Override
     public List<Moderator> findAllBycommunity(Community community) {
-        return repository.findAllByCommunity(community);
+        return repository.findAllByCommunityId(community.getId());
     }
 }

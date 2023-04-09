@@ -41,7 +41,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findAllFromCommunity(Community community) {
-        return repository.findAllByCommunity(community);
+        return repository.findAllByCommunityId(community.getId());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void remove(String id) {
         repository.deleteById(id);
     }
 
@@ -59,7 +59,7 @@ public class PostServiceImpl implements PostService {
         Reaction reaction = new Reaction();
         LocalDate ts = LocalDate.now();
 
-        reaction.setPost(post);
+        reaction.setPostId(post.getId());
         reaction.setType(ReactionTypeENUM.UPVOTE);
         reaction.setUser(userService.findOne(userId));
         reaction.setTimestamp(ts);
@@ -71,7 +71,7 @@ public class PostServiceImpl implements PostService {
         Reaction reaction = new Reaction();
         LocalDate ts = LocalDate.now();
 
-        reaction.setPost(post);
+        reaction.setPostId(post.getId());
         reaction.setType(ReactionTypeENUM.DOWNVOTE);
         reaction.setUser(userService.findOne(userId));
         reaction.setTimestamp(ts);

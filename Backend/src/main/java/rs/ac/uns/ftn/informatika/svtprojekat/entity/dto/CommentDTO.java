@@ -19,72 +19,25 @@ public class CommentDTO implements Serializable {
 
     private UserDTO user;
 
-    private PostDTO post;
+    private String postId;
 
     private int karma;
 
     public CommentDTO() {
     }
 
-    public CommentDTO(Integer id, String text, LocalDate timestamp, boolean isDeleted, UserDTO user, PostDTO post) {
+    public CommentDTO(Integer id, String text, LocalDate timestamp, boolean isDeleted, UserDTO user, String postId) {
         this.id = id;
         this.text = text;
         this.timestamp = timestamp;
         this.isDeleted = isDeleted;
         this.user = user;
-        this.post = post;
+        this.postId = postId;
     }
 
     public CommentDTO(Comment comment) {
-        this(comment.getId(), comment.getText(), comment.getTimestamp(), comment.isDeleted(), new UserDTO(comment.getUser()) , new PostDTO(comment.getPost()));
+        this(comment.getId(), comment.getText(), comment.getTimestamp(), comment.isDeleted(), new UserDTO(comment.getUser()) , comment.getPostId());
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public LocalDate getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDate timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
-
-    public PostDTO getPost() {
-        return post;
-    }
-
-    public void setPost(PostDTO post) {
-        this.post = post;
-    }
 
 }

@@ -36,9 +36,8 @@ public class Report implements Serializable {
     @JoinColumn(name = "comment_id", referencedColumnName = "comment_id", nullable = false)
     private Comment comment;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "post_id", nullable = false)
-    private Post post;
+    @Column(name = "post_id", unique = true, nullable = false)
+    private String postId;
 
     public Report() {
     }

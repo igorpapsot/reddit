@@ -43,11 +43,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findAllByPost(Post post) {
-        return repository.findAllByPost(post);
+        return repository.findAllByPostId(post.getId());
     }
 
     @Override
     public void deleteAllByPost(Post post) {
-        repository.deleteByPost(post);
+        repository.deleteByPostId(post.getId());
     }
 }

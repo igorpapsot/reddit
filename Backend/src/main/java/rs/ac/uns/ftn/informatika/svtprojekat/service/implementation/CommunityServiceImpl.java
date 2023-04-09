@@ -8,6 +8,8 @@ import rs.ac.uns.ftn.informatika.svtprojekat.service.CommunityService;
 
 import java.util.List;
 
+import static org.elasticsearch.common.UUIDs.base64UUID;
+
 @Service
 public class CommunityServiceImpl implements CommunityService {
 
@@ -20,8 +22,8 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public Community findOne(Integer id) {
-        return repository.findById(id).orElse(null);
+    public Community findOne(String id) {
+        return repository.findById(id);
     }
 
     @Override
@@ -35,7 +37,22 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void remove(String id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public String getId() {
+        String id = base64UUID();
+        System.out.println(id);
+//        if(repository.findDistinctById(id) == null) {
+//            return id;
+//        }
+//        else {
+//            return null;
+//        }
+        return id;
+
+
     }
 }

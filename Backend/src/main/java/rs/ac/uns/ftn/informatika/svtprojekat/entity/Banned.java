@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -31,9 +30,8 @@ public class Banned implements Serializable {
     @JoinColumn(name = "moderator_id", referencedColumnName = "moderator_id", nullable = false)
     private Moderator moderator;
 
-    @ManyToOne
-    @JoinColumn(name = "community_id", referencedColumnName = "community_id", nullable = false)
-    private Community community;
+    @Column(name = "community_id", nullable = false, unique = true)
+    private String communityId;
 
     public Banned() {
     }

@@ -47,7 +47,7 @@ public class CommunityController {
 
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CommunityDTO> getCommunity(@PathVariable("id") Integer id) {
+    public ResponseEntity<CommunityDTO> getCommunity(@PathVariable("id") String id) {
         Community community = communityService.findOne(id);
         if (community == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -70,12 +70,13 @@ public class CommunityController {
         community.setName(communityDTO.getName());
         community.setCreationDate(date.toString());
         community.setSuspended(false);
+        community.setId(communityService.getId());
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User u = (User) auth.getPrincipal();
         rs.ac.uns.ftn.informatika.svtprojekat.entity.User user = userService.findUserByUsername(u.getUsername());
 
-        moderator.setCommunity(community);
+        moderator.setCommunityId(community.getId());
         moderator.setUser(user);
         if(community.getDescription() == null || community.getName() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -88,7 +89,7 @@ public class CommunityController {
 
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CommunityDTO> putCommunity(@RequestBody CommunityDTO communityDTO, @PathVariable("id") Integer id){
+    public ResponseEntity<CommunityDTO> putCommunity(@RequestBody CommunityDTO communityDTO, @PathVariable("id") String id){
         if (communityDTO.getId() != null) {
             Community community = communityService.findOne(id);
 
@@ -114,7 +115,7 @@ public class CommunityController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity deleteCommunity(@PathVariable("id") Integer id) {
+    public ResponseEntity deleteCommunity(@PathVariable("id") String id) {
         if (id != null) {
             Community community = communityService.findOne(id);
 
@@ -131,7 +132,7 @@ public class CommunityController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(consumes = "text/plain", value = "/{id}/suspend")
-    public ResponseEntity<CommunityDTO> suspend(@PathVariable("id") Integer id, @RequestBody String reason){
+    public ResponseEntity<CommunityDTO> suspend(@PathVariable("id") String id, @RequestBody String reason){
         Community community = communityService.findOne(id);
         community.setSuspended(true);
         community.setSuspendedReason(reason);

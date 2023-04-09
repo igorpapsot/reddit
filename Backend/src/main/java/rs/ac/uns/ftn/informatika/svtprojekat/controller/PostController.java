@@ -58,7 +58,7 @@ public class PostController {
     }
 
     @GetMapping(value = "/community/{id}")
-    public ResponseEntity<List<PostDTO>> getPostsFromCommunity(@PathVariable("id") Integer communityId) {
+    public ResponseEntity<List<PostDTO>> getPostsFromCommunity(@PathVariable("id") String communityId) {
         Community community = communityService.findOne(communityId);
         List<Post> posts = postService.findAllFromCommunity(community);
 
@@ -107,16 +107,16 @@ public class PostController {
         LocalDate date = LocalDate.now();
 
         post.setFlair(flairService.findOne(postDTO.getFlair().getId()));
-        post.setCommunity(communityService.findOne(postDTO.getCommunity().getId()));
-        if(postDTO.getUser().getId() == null) {
-            post.setUser(userService.findUserByUsername(postDTO.getUser().getUsername()));
+        post.setCommunityId(postDTO.getCommunityId());
+        if(postDTO.getUserId() == null) {
+            //TODO nzm sta je ovo
+            //post.setUser(userService.findUserByUsername(postDTO.getUser().getUsername()));
         }
         else {
-            post.setUser(userService.findOne(postDTO.getUser().getId()));
+            post.setUserId(postDTO.getUserId());
         }
 
         post.setCreationDate(date);
-        post.setImagePath(postDTO.getImagePath());
         post.setText(postDTO.getText());
         post.setTitle(postDTO.getTitle());
 
@@ -124,15 +124,14 @@ public class PostController {
         User u = (User) auth.getPrincipal();
         rs.ac.uns.ftn.informatika.svtprojekat.entity.User user = userService.findUserByUsername(u.getUsername());
 
-        if(post.getImagePath() == null || post.getText() == null ||
-            post.getTitle() == null || post.getFlair() == null ||
-            post.getCommunity() == null || post.getUser() == null) {
+        if(post.getText() == null || post.getTitle() == null || post.getFlair() == null ||
+            post.getCommunityId() == null || post.getUserId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         Reaction reaction = new Reaction();
         LocalDate ts = LocalDate.now();
-        reaction.setPost(post);
+        reaction.setPostId(post.getId());
         reaction.setType(ReactionTypeENUM.UPVOTE);
         reaction.setUser(user);
         //reaction.setUser(post.getUser());
@@ -158,22 +157,20 @@ public class PostController {
             rs.ac.uns.ftn.informatika.svtprojekat.entity.User user = userService.findUserByUsername(u.getUsername());
 
             System.out.println("user id: " + user.getId());
-            System.out.println("user id from post: " + post.getUser().getId());
-            if(!user.getId().equals(post.getUser().getId())) {
+            System.out.println("user id from post: " + post.getUserId());
+            if(!user.getId().equals(post.getUserId())) {
                 return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             }
 
             post.setFlair(flairService.findOne(postDTO.getFlair().getId()));
-            post.setCommunity(communityService.findOne(postDTO.getCommunity().getId()));
-            post.setUser(userService.findOne(postDTO.getUser().getId()));
+            post.setCommunityId(postDTO.getCommunityId());
+            post.setUserId(postDTO.getUserId());
 
-            post.setImagePath(postDTO.getImagePath());
             post.setText(postDTO.getText());
             post.setTitle(postDTO.getTitle());
 
-            if(post.getImagePath() == null || post.getText() == null ||
-                    post.getTitle() == null || post.getFlair() == null ||
-                    post.getCommunity() == null || post.getUser() == null) {
+            if( post.getText() == null || post.getTitle() == null || post.getFlair() == null ||
+                    post.getCommunityId() == null || post.getUserId() == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
@@ -200,8 +197,8 @@ public class PostController {
             rs.ac.uns.ftn.informatika.svtprojekat.entity.User user = userService.findUserByUsername(u.getUsername());
 
             System.out.println("user id: " + user.getId());
-            System.out.println("user id from post: " + post.getUser().getId());
-            if(!user.getId().equals(post.getUser().getId())) {
+            System.out.println("user id from post: " + post.getUserId());
+            if(!user.getId().equals(post.getUserId())) {
                 return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             }
             commentService.deleteAllByPost(post);
@@ -356,7 +353,7 @@ public class PostController {
                 User u = (User) auth.getPrincipal();
                 rs.ac.uns.ftn.informatika.svtprojekat.entity.User user = userService.findUserByUsername(u.getUsername());
 
-                comment.setPost(post);
+                comment.setPostId(post.getId());
                 comment.setText(commentDTO.getText());
                 comment.setUser(user);
                 comment.setDeleted(false);

@@ -20,12 +20,12 @@ public class ReactionDTO implements Serializable {
 
     private Integer commentId;
 
-    private Integer postId;
+    private String postId;
 
     public ReactionDTO() {
     }
 
-    public ReactionDTO(Integer id, ReactionTypeENUM type, LocalDate timestamp, Integer userId, Integer commentId, Integer postId) {
+    public ReactionDTO(Integer id, ReactionTypeENUM type, LocalDate timestamp, Integer userId, Integer commentId, String postId) {
         this.id = id;
         this.type = type;
         this.timestamp = timestamp;
@@ -35,7 +35,7 @@ public class ReactionDTO implements Serializable {
     }
 
     public ReactionDTO(Reaction reaction) {
-        this(reaction.getId(), reaction.getType(), reaction.getTimestamp(), reaction.getUser().getId(), reaction.getComment().getId(), reaction.getPost().getId());
+        this(reaction.getId(), reaction.getType(), reaction.getTimestamp(), reaction.getUser().getId(), reaction.getComment().getId(), reaction.getPostId());
 
     }
 }

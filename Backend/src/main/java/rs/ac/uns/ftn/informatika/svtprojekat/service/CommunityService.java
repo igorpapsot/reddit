@@ -8,12 +8,14 @@ public interface CommunityService {
 
     List<Community> findAllByParent(Community parent);
 
-    Community findOne(Integer id);
+    Community findOne(String id);
 
     List<Community> findAll();
 
     Community save(Community community);
 
-    void remove(Integer id);
+    void remove(String id);
+
+    String getId();
 
 }

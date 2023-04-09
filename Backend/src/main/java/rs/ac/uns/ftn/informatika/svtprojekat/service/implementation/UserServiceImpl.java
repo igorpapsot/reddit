@@ -89,13 +89,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int getKarma(User user) {
-        List<Post> posts = postRepository.findAllByUser(user);
+        List<Post> posts = postRepository.findAllByUserId(user.getId());
         List<Comment> comments = commentRepository.findAllByUser(user);
         //TODO: isto ovo samo za komentare
         int karma = 0;
 
         for (Post post : posts) {
-            List<Reaction> reactions = reactionRepository.findAllByPost(post);
+            List<Reaction> reactions = reactionRepository.findAllByPostId(post.getId());
             for (Reaction reaction : reactions) {
                 if (reaction.getType().equals(ReactionTypeENUM.UPVOTE)){
                     karma = karma + 1;

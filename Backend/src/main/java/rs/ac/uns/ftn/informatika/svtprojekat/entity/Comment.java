@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -34,9 +33,8 @@ public class Comment implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "post_id", nullable = false)
-    private Post post;
+    @Column(name = "post_id", nullable = false, unique = true)
+    private String postId;
 
     //ovo nekako napraviti da radi
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

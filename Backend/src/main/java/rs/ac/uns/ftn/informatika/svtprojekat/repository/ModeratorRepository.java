@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ModeratorRepository extends JpaRepository<Moderator, Integer> {
 
-    List<Moderator> findAllByCommunity(Community community);
+    List<Moderator> findAllByCommunityId(String communityId);
 
 }
