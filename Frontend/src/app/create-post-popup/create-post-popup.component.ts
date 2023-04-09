@@ -36,9 +36,9 @@ export class CreatePostPopupComponent implements OnInit {
 
 
   createPost() {
-    this.user.username = this.storeService.username;
-    this.post.user = this.user;
-    this.post.community = this.community;
+    this.post.username = this.storeService.username;
+    this.post.userId = this.user.id;
+    this.post.communityId = this.community.id;
     this.post.flair = this.flair;
 
     this.postService.post(this.post)

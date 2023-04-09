@@ -59,10 +59,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUsername(String username) {
         Optional<User> user = repository.findFirstByUsername(username);
-        if (!user.isEmpty()) {
-            return user.get();
-        }
-        return null;
+        return user.orElse(null);
     }
 
     @Override

@@ -8,10 +8,12 @@ export class Post {
     text: string;
     title: string;
     imagePath: string;
-    user: User;
+    userId: number;
     flair: Flair;
-    community: Community;
+    communityId: number;
     karma : number;
+    user: User;
+    username: string;
 
     constructor() {
         

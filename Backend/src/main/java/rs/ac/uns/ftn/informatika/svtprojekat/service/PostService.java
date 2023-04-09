@@ -22,4 +22,6 @@ public interface PostService {
     void upVote(Integer userId, Post post);
 
     void downVote(Integer userId, Post post);
+
+    String getId();
 }

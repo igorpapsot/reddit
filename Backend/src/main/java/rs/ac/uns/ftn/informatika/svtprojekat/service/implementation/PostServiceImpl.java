@@ -14,6 +14,8 @@ import rs.ac.uns.ftn.informatika.svtprojekat.service.UserService;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.elasticsearch.common.UUIDs.base64UUID;
+
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -76,6 +78,21 @@ public class PostServiceImpl implements PostService {
         reaction.setUser(userService.findOne(userId));
         reaction.setTimestamp(ts);
         reactionRepository.save(reaction);
+    }
+
+    @Override
+    public String getId() {
+        String id = base64UUID();
+        System.out.println(id);
+//        if(repository.findDistinctById(id) == null) {
+//            return id;
+//        }
+//        else {
+//            return null;
+//        }
+        return id;
+
+
     }
 
 }

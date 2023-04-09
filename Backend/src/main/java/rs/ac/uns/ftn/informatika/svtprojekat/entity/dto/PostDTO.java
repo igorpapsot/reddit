@@ -25,6 +25,8 @@ public class PostDTO implements Serializable {
 
     private String communityId;
 
+    private String username;
+
     private int karma;
 
     public PostDTO() {

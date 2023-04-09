@@ -105,12 +105,12 @@ public class PostController {
     public ResponseEntity<PostDTO> postPost(@RequestBody PostDTO postDTO){
         Post post = new Post();
         LocalDate date = LocalDate.now();
+        System.out.println(postDTO.toString());
 
         post.setFlair(flairService.findOne(postDTO.getFlair().getId()));
         post.setCommunityId(postDTO.getCommunityId());
         if(postDTO.getUserId() == null) {
-            //TODO nzm sta je ovo
-            //post.setUser(userService.findUserByUsername(postDTO.getUser().getUsername()));
+            post.setUserId(userService.findUserByUsername(postDTO.getUsername()).getId());
         }
         else {
             post.setUserId(postDTO.getUserId());
@@ -119,6 +119,7 @@ public class PostController {
         post.setCreationDate(date);
         post.setText(postDTO.getText());
         post.setTitle(postDTO.getTitle());
+        post.setId(postService.getId());
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User u = (User) auth.getPrincipal();
@@ -134,7 +135,6 @@ public class PostController {
         reaction.setPostId(post.getId());
         reaction.setType(ReactionTypeENUM.UPVOTE);
         reaction.setUser(user);
-        //reaction.setUser(post.getUser());
         reaction.setTimestamp(ts);
         reactionService.save(reaction);
         postService.save(post);
