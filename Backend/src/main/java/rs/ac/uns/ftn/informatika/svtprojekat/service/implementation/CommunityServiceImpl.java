@@ -55,4 +55,14 @@ public class CommunityServiceImpl implements CommunityService {
 
 
     }
+
+    @Override
+    public List<Community> findByText(String text) {
+        return repository.findAllByDescription(text);
+    }
+
+    @Override
+    public List<Community> findByName(String name) {
+        return repository.findAllByName(name);
+    }
 }

@@ -95,4 +95,14 @@ public class PostServiceImpl implements PostService {
 
     }
 
+    @Override
+    public List<Post> findByText(String text) {
+        return repository.findAllByText(text);
+    }
+
+    @Override
+    public List<Post> findByTitle(String title) {
+        return repository.findAllByTitle(title);
+    }
+
 }

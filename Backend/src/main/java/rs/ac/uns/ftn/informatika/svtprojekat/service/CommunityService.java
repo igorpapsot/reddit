@@ -18,4 +18,9 @@ public interface CommunityService {
 
     String getId();
 
+    List<Community> findByText(String text);
+
+    List<Community> findByName(String name);
+
+
 }

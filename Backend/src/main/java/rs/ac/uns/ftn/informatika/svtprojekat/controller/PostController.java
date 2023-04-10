@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.*;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.CommentDTO;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.CommunityDTO;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTO;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTOandorid;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.*;
@@ -40,6 +41,36 @@ public class PostController {
 
     @Autowired
     private CommentService commentService;
+
+    @GetMapping("/title/{title}")
+    public ResponseEntity<List<PostDTO>> findCommunitiesByTitle(@PathVariable String title){
+        List<Post> posts = postService.findByTitle(title);
+
+        List<PostDTO> postsDTO = new ArrayList<>();
+        for (Post p : posts) {
+            System.out.println(p.toString());
+            PostDTO post = new PostDTO(p);
+            post.setKarma(reactionService.getKarma(p));
+            postsDTO.add(post);
+        }
+
+        return new ResponseEntity<>(postsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/text/{text}")
+    public ResponseEntity<List<PostDTO>> findCommunitiesByText(@PathVariable String text){
+        List<Post> posts = postService.findByText(text);
+
+        List<PostDTO> postsDTO = new ArrayList<>();
+        for (Post p : posts) {
+            System.out.println(p.toString());
+            PostDTO post = new PostDTO(p);
+            post.setKarma(reactionService.getKarma(p));
+            postsDTO.add(post);
+        }
+
+        return new ResponseEntity<>(postsDTO, HttpStatus.OK);
+    }
 
 
     @GetMapping

@@ -24,4 +24,8 @@ public interface PostService {
     void downVote(Integer userId, Post post);
 
     String getId();
+
+    List<Post> findByText(String text);
+
+    List<Post> findByTitle(String name);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Moderator;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.CommunityDTO;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.es.CommunityTextDTO;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.CommunityService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.ModeratorService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.UserService;
@@ -32,6 +33,30 @@ public class CommunityController {
 
     @Autowired
     private ModeratorService moderatorService;
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<CommunityDTO>> findCommunitiesByName(@PathVariable String name){
+        List<Community> communities = communityService.findByName(name);
+
+        List<CommunityDTO> communitiesDTO = new ArrayList<>();
+        for (Community c : communities) {
+            communitiesDTO.add(new CommunityDTO(c));
+        }
+
+        return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/description/{description}")
+    public ResponseEntity<List<CommunityDTO>> findCommunitiesByDescription(@PathVariable String description){
+        List<Community> communities = communityService.findByText(description);
+
+        List<CommunityDTO> communitiesDTO = new ArrayList<>();
+        for (Community c : communities) {
+            communitiesDTO.add(new CommunityDTO(c));
+        }
+
+        return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity<List<CommunityDTO>> getCommunities() {
