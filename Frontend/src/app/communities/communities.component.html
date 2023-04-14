@@ -1,5 +1,21 @@
 <br/>
 <div class="container">
+  <div class="row">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+        Search by
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li class="dropdown-item" (click) = "changeToDesc()">Description</li>
+        <li class="dropdown-item" (click) = "changeToName()">Name</li>
+      </ul>
+    </div>
+
+  </div>
+
+
+  <br/>
+
     <form #searchForm="ngForm">
 
         <div class="row">
@@ -9,7 +25,7 @@
                 required id="input" name="searchInput"
                 [(ngModel)]="search.input" 
                 #searchInput="ngModel" placeholder="Search">
-            </div>
+            </div >
           </div>
 
           <div>

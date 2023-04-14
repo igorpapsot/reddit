@@ -43,7 +43,7 @@ export class CommunityService {
   }
 
   getCommunitiesByName(name: string) : Observable<any[]> {
-    return this.http.get<any[]>(environment.ROOT_URL + "communities");
+    return this.http.get<any[]>(environment.ROOT_URL + "communities/name/" + name);
   }
 
   deleteCommunity(id : string) {

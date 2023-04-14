@@ -16,18 +16,32 @@ export class CommunitiesComponent implements OnInit {
 
   communities!: Observable<any[]>;
 
-  search = new Search(); 
+  search = new Search();
+  
+  typeOfInput: boolean = true;
 
   searchF() {
     console.log(this.search.input);
     if(this.search.input ==  "" || this.search.input == undefined) {
-      console.log("jaca")
+      console.log("a")
       this.getCommunites();
     }
-    else {
-      console.log("prica")
+    else if(this.typeOfInput == true) {
+      console.log("b")
       this.getCommunitesByDesc(this.search.input);
     }
+    else if(this.typeOfInput == false) {
+      console.log("c")
+      this.getCommunitesByName(this.search.input);
+    }
+  }
+
+  changeToDesc() {
+    this.typeOfInput = true
+  }
+
+  changeToName() {
+    this.typeOfInput = false
   }
 
   getCommunites() {
