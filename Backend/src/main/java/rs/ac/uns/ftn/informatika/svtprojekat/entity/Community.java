@@ -29,7 +29,7 @@ public class Community implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private String id;
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Text)
     private String name;
 
     @Field(type = FieldType.Text)
@@ -38,17 +38,21 @@ public class Community implements Serializable {
     @Field(type = FieldType.Date)
     private String creationDate;
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Boolean)
     private boolean isSuspended;
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Text)
     private String suspendedReason;
 
-    private List<Flair> flairs;
+    private String keywords;
 
-    private Set<Moderator> moderators = new HashSet<Moderator>();
+    private String filename;
 
-    private Set<Post> posts = new HashSet<Post>();
+    //private List<Flair> flairs;
+
+    //private Set<Moderator> moderators = new HashSet<Moderator>();
+
+    //private Set<Post> posts = new HashSet<Post>();
 
 
 }

@@ -10,7 +10,7 @@ export class Post {
     imagePath: string;
     userId: number;
     flair: Flair;
-    communityId: number;
+    communityId: string;
     karma : number;
     user: User;
     username: string;

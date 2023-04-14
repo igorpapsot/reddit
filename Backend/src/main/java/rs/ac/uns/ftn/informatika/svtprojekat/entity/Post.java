@@ -25,7 +25,7 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = IDENTITY)
     private String id;
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Text)
     private String title;
 
     @Field(type = FieldType.Text)
@@ -34,13 +34,13 @@ public class Post implements Serializable {
     @Field(type = FieldType.Date)
     private LocalDate creationDate;
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Integer)
     private Integer userId;
 
     @Field(type = FieldType.Keyword)
     private Flair flair;
 
-    @Field(type = FieldType.Integer)
+    @Field(type = FieldType.Keyword)
     private String communityId;
 
     private String keywords;

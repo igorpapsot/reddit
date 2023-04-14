@@ -23,4 +23,5 @@ public interface CommunityService {
     List<Community> findByName(String name);
 
 
+    Integer getNumOfPosts(String communityId);
 }

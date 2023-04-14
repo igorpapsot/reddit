@@ -1,11 +1,12 @@
 export class Community {
 
-    id: number;
+    id: string;
     name: string;
     description: string;
     creationDate: Date;
     suspendedReason: string;
     suspended: boolean;
+    numOfPosts: number;
 
     constructor() {
         

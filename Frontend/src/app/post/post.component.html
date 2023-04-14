@@ -7,7 +7,7 @@
                         &nbsp; {{post.title}}
                     </div>
                     <div class="col">
-                        <a href="#">{{community.name}}</a>
+                        <a href="#">{{post.communityId}}</a>
                     </div>
                     <div class="col">
                         <span class="badge badge-success" style="margin-bottom: 6px;">{{flair.name}}</span>
@@ -35,7 +35,7 @@
             <div class="row" *ngIf="store.username === post.user.username">
                 
                 <div class="col-md-2 offset-md-8">
-                    <app-update-post-popup [post] = "post" [flair] = "flair" [community] = "community"></app-update-post-popup>
+                    <app-update-post-popup [post] = "post" [flair] = "flair" [communityId] = "communityId"></app-update-post-popup>
                 </div>
                 <div class="col-md-1">
                     <button type="submit" class="btn btn-danger btn-sm" style="margin: 5px;" (click)="delete()">Delete</button>

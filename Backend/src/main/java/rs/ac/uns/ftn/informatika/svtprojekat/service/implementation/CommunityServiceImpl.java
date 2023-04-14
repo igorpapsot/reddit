@@ -3,7 +3,9 @@ package rs.ac.uns.ftn.informatika.svtprojekat.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.CommunityRepository;
+import rs.ac.uns.ftn.informatika.svtprojekat.repository.PostRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.CommunityService;
 
 import java.util.List;
@@ -15,6 +17,9 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Autowired
     CommunityRepository repository;
+
+    @Autowired
+    PostRepository postRepository;
 
     @Override
     public List<Community> findAllByParent(Community parent) {
@@ -58,11 +63,18 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<Community> findByText(String text) {
-        return repository.findAllByDescription(text);
+        return repository.findAllByDescriptionContains(text);
     }
 
     @Override
     public List<Community> findByName(String name) {
-        return repository.findAllByName(name);
+        return repository.findAllByNameContains(name);
     }
+
+    @Override
+    public Integer getNumOfPosts(String communityId) {
+        List<Post> posts = postRepository.findAllByCommunityId(communityId);
+        return posts.size();
+    }
+
 }

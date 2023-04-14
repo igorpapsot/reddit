@@ -64,7 +64,7 @@
                   <div class="form-group">
                           <label for="community">Community</label>
                           <select class="form-control" id="community" required
-                                [(ngModel)]="community.id" name="communityId"
+                                [(ngModel)]="post.communityId" name="communityId"
                                 #communityId="ngModel">
                                 <option *ngFor="let community of communities | async; index as i; first as isFirst" [value] = "community.id">{{community.name}}</option>
                           </select>

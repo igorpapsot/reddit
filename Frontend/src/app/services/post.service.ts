@@ -34,6 +34,14 @@ export class PostService {
     };
   }
 
+  getPostsByTitle(title: string) : Observable<any[]> {
+    return this.http.get<any[]>(environment.ROOT_URL + "posts/title/" + title);
+  }
+
+  getPostsText(text: string) : Observable<any[]> {
+    return this.http.get<any[]>(environment.ROOT_URL + "posts/text/" + text);
+  }
+
   getPosts() : Observable<any[]> {
     return this.http.get<any[]>(environment.ROOT_URL + "posts");
   }

@@ -25,10 +25,12 @@ public class CommunityDTO implements Serializable {
 
     private Set<String> modUsernames;
 
+    private Integer numOfPosts;
+
     public CommunityDTO() {
     }
 
-    public CommunityDTO(String id, String name, String description, String creationDate, boolean isSuspended, String suspendedReason, Set<Moderator> moderatorSet) {
+    public CommunityDTO(String id, String name, String description, String creationDate, boolean isSuspended, String suspendedReason) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -36,12 +38,10 @@ public class CommunityDTO implements Serializable {
         this.isSuspended = isSuspended;
         this.suspendedReason = suspendedReason;
         modUsernames = new HashSet<>();
-        for(Moderator m : moderatorSet) {
-            modUsernames.add(m.getUser().getUsername());
-        }
+
     }
 
     public CommunityDTO(Community community) {
-        this(community.getId(), community.getName(), community.getDescription(), community.getCreationDate(), community.isSuspended(), community.getSuspendedReason(), community.getModerators());
+        this(community.getId(), community.getName(), community.getDescription(), community.getCreationDate(), community.isSuspended(), community.getSuspendedReason());
     }
 }

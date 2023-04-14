@@ -19,7 +19,7 @@ public interface PostRepository extends ElasticsearchRepository<Post, Integer> {
 
     void deleteById(String id);
 
-    List<Post> findAllByText(String text);
+    List<Post> findAllByTextContaining(String text);
 
-    List<Post> findAllByTitle(String title);
+    List<Post> findAllByTitleContaining(String title);
 }

@@ -38,13 +38,21 @@ export class CommunityService {
     return this.http.get<any[]>(environment.ROOT_URL + "communities");
   }
 
-  deleteCommunity(id : number) {
+  getCommunitiesByDescription(desc: string) : Observable<any[]> {
+    return this.http.get<any[]>(environment.ROOT_URL + "communities/description/" + desc);
+  }
+
+  getCommunitiesByName(name: string) : Observable<any[]> {
+    return this.http.get<any[]>(environment.ROOT_URL + "communities");
+  }
+
+  deleteCommunity(id : string) {
     this.http.delete(environment.ROOT_URL + "communities/" + id, this.httpOptions())
     .subscribe(() => this.status = 'Delete successful');
     console.log(this.status);
   }
 
-  suspendCommunity(id : number, reason : String) {
+  suspendCommunity(id : string, reason : String) {
     console.log(reason);
     this.http.put<any>(environment.ROOT_URL + "communities/" + id + "/suspend", reason, this.optionsSuspend())
     .subscribe(() => this.suspendStatus = 'Delete successful');

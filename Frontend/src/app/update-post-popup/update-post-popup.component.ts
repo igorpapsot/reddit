@@ -40,7 +40,7 @@ export class UpdatePostPopupComponent implements OnInit {
   createPost() {
     this.user.id = 1;
     this.post.userId = this.user.id;
-    this.post.communityId = this.community.id;
+    this.post.communityId = this.communityId;
     this.post.flair = this.flair;
 
     this.postService.post(this.post)
@@ -53,7 +53,7 @@ export class UpdatePostPopupComponent implements OnInit {
   editPost() {
     this.user.id = 1;
     this.post.userId = this.user.id;
-    this.post.communityId = this.community.id;
+    this.post.communityId = this.communityId;
     this.post.flair = this.flair;
 
     this.postService.update(this.post)
@@ -69,7 +69,7 @@ export class UpdatePostPopupComponent implements OnInit {
   flair: Flair = new Flair();
 
   @Input()
-  community: Community = new Community();
+  communityId: string = "";
 
   user: User = new User();
 

@@ -13,6 +13,7 @@ import { StoreService } from '../services/store.service';
 export class PostComponent implements OnInit {
 
   constructor(private postService : PostService, public store : StoreService) { 
+    console.log(this.post.communityId)
   }
   
   deleted : boolean = false;
@@ -29,7 +30,7 @@ export class PostComponent implements OnInit {
   public flair : Flair = new Flair();
 
   @Input()
-  public community : Community = new Community();
+  public communityId : string = ""
 
   ngOnInit(): void {
   }

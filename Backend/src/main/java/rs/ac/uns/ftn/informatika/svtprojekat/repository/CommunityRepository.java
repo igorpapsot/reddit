@@ -15,9 +15,9 @@ public interface CommunityRepository extends ElasticsearchRepository<Community, 
 
     Community findById(String id);
 
-    List<Community> findAllByDescription(String description);
+    List<Community> findAllByDescriptionContains(String description);
 
-    List<Community> findAllByName(String name);
+    List<Community> findAllByNameContains(String name);
 
 
 }

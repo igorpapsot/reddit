@@ -38,22 +38,18 @@ public class CommunityController {
     public ResponseEntity<List<CommunityDTO>> findCommunitiesByName(@PathVariable String name){
         List<Community> communities = communityService.findByName(name);
 
-        List<CommunityDTO> communitiesDTO = new ArrayList<>();
-        for (Community c : communities) {
-            communitiesDTO.add(new CommunityDTO(c));
-        }
+        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
 
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
+
+
 
     @GetMapping("/description/{description}")
     public ResponseEntity<List<CommunityDTO>> findCommunitiesByDescription(@PathVariable String description){
         List<Community> communities = communityService.findByText(description);
 
-        List<CommunityDTO> communitiesDTO = new ArrayList<>();
-        for (Community c : communities) {
-            communitiesDTO.add(new CommunityDTO(c));
-        }
+        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
 
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
@@ -62,12 +58,30 @@ public class CommunityController {
     public ResponseEntity<List<CommunityDTO>> getCommunities() {
         List<Community> communities = communityService.findAll();
 
-        List<CommunityDTO> communitiesDTO = new ArrayList<>();
-        for (Community c : communities) {
-            communitiesDTO.add(new CommunityDTO(c));
-        }
+        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
 
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
+    }
+
+    private List<CommunityDTO> getCommunityDTOList(List<Community> communities) {
+        List<CommunityDTO> communitiesDTO = new ArrayList<>();
+        for (Community c : communities) {
+            CommunityDTO cDTO = new CommunityDTO(c);
+            communitiesDTO.add(cDTO);
+        }
+        return communitiesDTO;
+    }
+
+    private List<CommunityDTO> getCommunitiesWithNumOfPosts(List<Community> communities) {
+        List<CommunityDTO> communitiesDTO = new ArrayList<>();
+        for (Community c : communities) {
+            CommunityDTO cDTO = new CommunityDTO(c);
+
+            Integer numOfPosts = communityService.getNumOfPosts(c.getId());
+            cDTO.setNumOfPosts(numOfPosts);
+            communitiesDTO.add(cDTO);
+        }
+        return communitiesDTO;
     }
 
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
