@@ -1,11 +1,8 @@
 package rs.ac.uns.ftn.informatika.svtprojekat.repository;
 
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.User;
 
 import java.util.List;
 
@@ -19,7 +16,7 @@ public interface PostRepository extends ElasticsearchRepository<Post, Integer> {
 
     void deleteById(String id);
 
-    List<Post> findAllByTextContaining(String text);
+    List<Post> findAllByTextContains(String text);
 
-    List<Post> findAllByTitleContaining(String title);
+    List<Post> findAllByTitleContains(String title);
 }

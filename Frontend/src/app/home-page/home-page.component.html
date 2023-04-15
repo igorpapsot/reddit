@@ -1,4 +1,40 @@
 <br/>
+<div class="container">
+    <div class="row">
+        <div class="dropdown col">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+            Search by
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li class="dropdown-item" (click) = "changeToTitle()">Title</li>
+            <li class="dropdown-item" (click) = "changeToText()">Text</li>
+          </ul>
+        </div>
+    </div>
+
+    <br/>
+
+    <form #searchForm="ngForm">
+
+        <div class="row">
+          <div class="col-md-10">
+            <div class="form-group">
+              <input type="text" class="form-control"
+                required id="input" name="searchInput"
+                [(ngModel)]="search.input" 
+                #searchInput="ngModel" placeholder="Search">
+            </div >
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-success btn-block" (click)="searchF()">Search</button>
+          </div>
+        </div>
+    </form>    
+
+</div>
+
+<br/>
 <app-create-post-popup *ngIf="store.loginStatus === true"></app-create-post-popup>
 <br/>
 

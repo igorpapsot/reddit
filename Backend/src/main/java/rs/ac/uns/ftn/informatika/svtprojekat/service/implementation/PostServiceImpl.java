@@ -6,7 +6,6 @@ import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Reaction;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.ReactionTypeENUM;
-import rs.ac.uns.ftn.informatika.svtprojekat.repository.CommunityRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.PostRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.ReactionRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.PostService;
@@ -98,12 +97,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findByText(String text) {
-        return repository.findAllByTextContaining(text);
+        return repository.findAllByTextContains(text);
     }
 
     @Override
     public List<Post> findByTitle(String title) {
-        return repository.findAllByTitleContaining(title);
+        return repository.findAllByTitleContains(title);
     }
 
 }
