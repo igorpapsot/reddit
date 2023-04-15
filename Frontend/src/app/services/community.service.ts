@@ -46,6 +46,10 @@ export class CommunityService {
     return this.http.get<any[]>(environment.ROOT_URL + "communities/name/" + name);
   }
 
+  getCommunitiesByNameAndDesc(input: string) : Observable<any[]> {
+    return this.http.get<any[]>(environment.ROOT_URL + "communities/find/" + input);
+  }
+
   deleteCommunity(id : string) {
     this.http.delete(environment.ROOT_URL + "communities/" + id, this.httpOptions())
     .subscribe(() => this.status = 'Delete successful');

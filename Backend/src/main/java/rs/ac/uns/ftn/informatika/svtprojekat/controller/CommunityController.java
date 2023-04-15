@@ -43,6 +43,14 @@ public class CommunityController {
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/find/{input}")
+    public ResponseEntity<List<CommunityDTO>> findCommunities(@PathVariable String input){
+        List<Community> communities = communityService.findCommunities(input);
+
+        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
+
+        return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
+    }
 
 
     @GetMapping("/description/{description}")

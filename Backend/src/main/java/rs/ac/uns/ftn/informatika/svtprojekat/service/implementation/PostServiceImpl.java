@@ -105,4 +105,9 @@ public class PostServiceImpl implements PostService {
         return repository.findAllByTitleContains(title);
     }
 
+    @Override
+    public List<Post> findPosts(String input) {
+        return repository.findPostByTextContainsOrTitleContains(input, input);
+    }
+
 }

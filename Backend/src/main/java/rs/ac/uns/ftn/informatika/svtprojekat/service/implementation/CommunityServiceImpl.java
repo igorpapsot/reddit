@@ -77,4 +77,9 @@ public class CommunityServiceImpl implements CommunityService {
         return posts.size();
     }
 
+    @Override
+    public List<Community> findCommunities(String input) {
+        return repository.findCommunityByDescriptionContainsOrNameContains(input, input);
+    }
+
 }

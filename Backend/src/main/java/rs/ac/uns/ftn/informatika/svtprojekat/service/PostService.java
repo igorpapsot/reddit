@@ -28,4 +28,6 @@ public interface PostService {
     List<Post> findByText(String text);
 
     List<Post> findByTitle(String name);
+
+    List<Post> findPosts(String input);
 }

@@ -24,4 +24,6 @@ public interface CommunityService {
 
 
     Integer getNumOfPosts(String communityId);
+
+    List<Community> findCommunities(String input);
 }

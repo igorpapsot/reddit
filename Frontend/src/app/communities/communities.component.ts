@@ -18,7 +18,9 @@ export class CommunitiesComponent implements OnInit {
 
   search = new Search();
   
-  typeOfInput: boolean = true;
+  desc: boolean = false;
+
+  name: boolean = false;
 
   searchF() {
     console.log(this.search.input);
@@ -26,23 +28,27 @@ export class CommunitiesComponent implements OnInit {
       console.log("a")
       this.getCommunites();
     }
-    else if(this.typeOfInput == true) {
+    else if(this.desc == true && this.name == false) {
       console.log("b")
       this.getCommunitesByDesc(this.search.input);
     }
-    else if(this.typeOfInput == false) {
+    else if(this.name == true && this.desc == false) {
       console.log("c")
       this.getCommunitesByName(this.search.input);
     }
+    else if(this.name == true && this.desc == true) {
+      this.getCommunitesByNameAndDesc(this.search.input);
+    }
   }
 
-  changeToDesc() {
-    this.typeOfInput = true
+  toggleDesc() {
+    this.desc = !this.desc
   }
 
-  changeToName() {
-    this.typeOfInput = false
+  toggleName() {
+    this.name = !this.name
   }
+  
 
   getCommunites() {
     this.communities = this.communityService.getCommunities();
@@ -54,6 +60,10 @@ export class CommunitiesComponent implements OnInit {
 
   getCommunitesByDesc(desc: string) {
     this.communities = this.communityService.getCommunitiesByDescription(desc);
+  }
+
+  getCommunitesByNameAndDesc(input: string) {
+    this.communities = this.communityService.getCommunitiesByNameAndDesc(input);
   }
 
   ngOnInit(): void {

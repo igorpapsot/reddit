@@ -1,15 +1,28 @@
 <br/>
 <div class="container">
     <div class="row">
-        <div class="dropdown col">
+        <div class="dropdown col-md-2">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
             Search by
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li class="dropdown-item" (click) = "changeToTitle()">Title</li>
-            <li class="dropdown-item" (click) = "changeToText()">Text</li>
+            <li class="dropdown-item" (click) = "toggleTitle()">Title</li>
+            <li class="dropdown-item" (click) = "toggleText()">Text</li>
           </ul>
         </div>
+
+        <div class="col-md-0.5">
+            <button type="button" class="btn btn-primary" (click) = "toggleTitle()" [hidden] = "!title">
+              Title <span class="badge bg-secondary">X</span>
+            </button>
+          </div>
+      
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary" (click) = "toggleText()" [hidden] = "!text">
+              Text <span class="badge bg-secondary">X</span>
+            </button>
+          </div>
+
     </div>
 
     <br/>
@@ -27,7 +40,7 @@
           </div>
 
           <div>
-            <button type="button" class="btn btn-success btn-block" (click)="searchF()">Search</button>
+            <button type="button" class="btn btn-success btn-block" (click)="searchF()" [disabled] = "title == false && text == false">Search</button>
           </div>
         </div>
     </form>    

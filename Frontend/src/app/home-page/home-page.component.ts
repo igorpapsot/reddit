@@ -27,13 +27,19 @@ export class HomePageComponent implements OnInit {
     this.posts = this.postService.getPostsByText(text);
   }
 
+  getPostsByTextAndTitle(input: string) {
+    this.posts = this.postService.getPostsByTextAndTitle(input);
+  }
+
   ngOnInit(): void {
     this.getPosts();
   }
 
   search = new Search();
 
-  typeOfInput: boolean = true;
+  title: boolean = false;
+
+  text: boolean = false;
 
   searchF() {
     console.log(this.search.input);
@@ -41,22 +47,25 @@ export class HomePageComponent implements OnInit {
       console.log("a")
       this.getPosts();
     }
-    else if(this.typeOfInput == true) {
+    else if(this.text == true && this.title == false) {
       console.log("b")
       this.getPostsByText(this.search.input);
     }
-    else if(this.typeOfInput == false) {
+    else if(this.title == true && this.text == false) {
       console.log("c")
       this.getPostsByTitle(this.search.input);
     }
+    else if(this.text == true && this.title == true) {
+      this.getPostsByTextAndTitle(this.search.input);
+    }
   }
 
-  changeToText() {
-    this.typeOfInput = true
+  toggleText() {
+    this.text = !this.text;
   }
 
-  changeToTitle() {
-    this.typeOfInput = false
+  toggleTitle() {
+    this.title = !this.title;
   }
   
 }
