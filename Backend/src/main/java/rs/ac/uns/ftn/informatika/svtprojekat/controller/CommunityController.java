@@ -38,7 +38,7 @@ public class CommunityController {
     public ResponseEntity<List<CommunityDTO>> findCommunitiesByName(@PathVariable String name){
         List<Community> communities = communityService.findByName(name);
 
-        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
+        List<CommunityDTO> communitiesDTO = getCommunitiesWithNumOfPosts(communities);
 
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
@@ -47,7 +47,7 @@ public class CommunityController {
     public ResponseEntity<List<CommunityDTO>> findCommunities(@PathVariable String input){
         List<Community> communities = communityService.findCommunities(input);
 
-        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
+        List<CommunityDTO> communitiesDTO = getCommunitiesWithNumOfPosts(communities);
 
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class CommunityController {
     public ResponseEntity<List<CommunityDTO>> findCommunitiesByDescription(@PathVariable String description){
         List<Community> communities = communityService.findByText(description);
 
-        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
+        List<CommunityDTO> communitiesDTO = getCommunitiesWithNumOfPosts(communities);
 
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
@@ -66,7 +66,7 @@ public class CommunityController {
     public ResponseEntity<List<CommunityDTO>> getCommunities() {
         List<Community> communities = communityService.findAll();
 
-        List<CommunityDTO> communitiesDTO = getCommunityDTOList(communities);
+        List<CommunityDTO> communitiesDTO = getCommunitiesWithNumOfPosts(communities);
 
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
@@ -86,7 +86,9 @@ public class CommunityController {
             CommunityDTO cDTO = new CommunityDTO(c);
 
             Integer numOfPosts = communityService.getNumOfPosts(c.getId());
+            Integer karma = communityService.getKarma(c.getId());
             cDTO.setNumOfPosts(numOfPosts);
+            cDTO.setKarma(karma);
             communitiesDTO.add(cDTO);
         }
         return communitiesDTO;

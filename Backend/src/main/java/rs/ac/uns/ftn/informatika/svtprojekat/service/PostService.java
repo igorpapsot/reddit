@@ -9,7 +9,7 @@ public interface PostService {
 
     List<Post> findAllByParent(Post parent);
 
-    Post findOne(Integer id);
+    Post findOne(String id);
 
     List<Post> findAll();
 

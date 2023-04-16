@@ -27,6 +27,8 @@ public class CommunityDTO implements Serializable {
 
     private Integer numOfPosts;
 
+    private Integer karma;
+
     public CommunityDTO() {
     }
 

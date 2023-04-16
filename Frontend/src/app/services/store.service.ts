@@ -13,6 +13,8 @@ export class StoreService {
       this.loginStatus = true;
       this.role = this.token.role.authority;
       this.username = this.token.sub;
+      this.id = this.token.id;
+      console.log(this.id);
     }
   }
 
@@ -24,6 +26,8 @@ export class StoreService {
 
   public username : string = "";
 
+  public id : number = 0;
+
   setLoginStatus(status: boolean) {
     this.loginStatus = status;
   }
@@ -32,6 +36,7 @@ export class StoreService {
     this.token = token;
     this.role = token.role.authority;
     this.username = token.sub;
+    this.id = token.id;
     console.log(this.username);
     console.log(this.role);
   }

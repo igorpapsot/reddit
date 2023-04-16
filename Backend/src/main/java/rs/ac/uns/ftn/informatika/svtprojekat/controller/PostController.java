@@ -136,7 +136,7 @@ public class PostController {
 
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PostDTO> getPost(@PathVariable("id") Integer id) {
+    public ResponseEntity<PostDTO> getPost(@PathVariable("id") String id) {
         Post post = postService.findOne(id);
         if (post == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -190,7 +190,7 @@ public class PostController {
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
     @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping(value = "/{id}")
-    public ResponseEntity<PostDTO> putPost(@RequestBody PostDTO postDTO, @PathVariable("id") Integer id){
+    public ResponseEntity<PostDTO> putPost(@RequestBody PostDTO postDTO, @PathVariable("id") String id){
         if (id != null) {
             Post post = postService.findOne(id);
 
@@ -230,7 +230,7 @@ public class PostController {
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity deletePost(@PathVariable("id") Integer id) {
+    public ResponseEntity deletePost(@PathVariable("id") String id) {
         if (id != null) {
             Post post = postService.findOne(id);
 
@@ -259,7 +259,7 @@ public class PostController {
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/{id}/upVotes")
-    public HttpStatus upVote(@PathVariable("id") Integer id) {
+    public HttpStatus upVote(@PathVariable("id") String id) {
         if (id != null) {
             Post post = postService.findOne(id);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -286,7 +286,7 @@ public class PostController {
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/{id}/downVotes")
-    public HttpStatus downVote(@PathVariable("id") Integer id) {
+    public HttpStatus downVote(@PathVariable("id") String id) {
         if (id != null) {
             Post post = postService.findOne(id);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -313,7 +313,7 @@ public class PostController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value = "/{id}/comments")
-    public ResponseEntity<List<CommentDTO>> getComments(@PathVariable("id") Integer id) {
+    public ResponseEntity<List<CommentDTO>> getComments(@PathVariable("id") String id) {
         Post post = postService.findOne(id);
         List<Comment> comments = commentService.findAllByPost(post);
 
@@ -331,7 +331,7 @@ public class PostController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping(value = "/{id}/comments/{commentId}/upVotes")
-    public HttpStatus upVoteComment(@PathVariable("id") Integer id, @PathVariable("commentId") Integer commentId) {
+    public HttpStatus upVoteComment(@PathVariable("id") String id, @PathVariable("commentId") Integer commentId) {
         if (id != null && commentId != null) {
             Comment comment = commentService.findOne(commentId);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -358,7 +358,7 @@ public class PostController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping(value = "/{id}/comments/{commentId}/downVotes")
-    public HttpStatus downVoteComment(@PathVariable("id") Integer id, @PathVariable("commentId") Integer commentId) {
+    public HttpStatus downVoteComment(@PathVariable("id") String id, @PathVariable("commentId") Integer commentId) {
         if (id != null && commentId != null) {
             Comment comment = commentService.findOne(commentId);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -385,7 +385,7 @@ public class PostController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/{id}/comments")
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
-    public HttpStatus postComment(@PathVariable("id") Integer id, @RequestBody CommentDTO commentDTO) {
+    public HttpStatus postComment(@PathVariable("id") String id, @RequestBody CommentDTO commentDTO) {
 
         if(id != null){
             if(commentDTO.getText() == null){
@@ -418,7 +418,7 @@ public class PostController {
     @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(value = "/{id}/comments/{commentId}")
     @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
-    public HttpStatus deleteComment(@PathVariable("id") Integer id, @PathVariable("commentId") Integer commentId) {
+    public HttpStatus deleteComment(@PathVariable("id") String id, @PathVariable("commentId") Integer commentId) {
 
         if(id != null && commentId != null){
             Comment comment = commentService.findOne(commentId);

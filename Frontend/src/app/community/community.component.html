@@ -18,8 +18,21 @@
                 </div>
                 
             </div>
-            <div class="card-footer" *ngIf="store.role === 'ROLE_ADMIN' ">
+            <div class="card-footer" >
                 <div class="row">
+                    <div>
+                        <p class="card-text">Posts: {{community.numOfPosts}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div>
+                        <p class="card-text">Karma: {{community.karma}}</p>
+                    </div>
+                </div>
+
+
+                <div class="row"*ngIf="store.role === 'ROLE_ADMIN' ">
                     <div class="col-md-1">
                         <label for="reason">Reason</label>
                     </div> 

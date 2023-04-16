@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.Reaction;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.ReactionTypeENUM;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.CommunityRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.PostRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.CommunityService;
+import rs.ac.uns.ftn.informatika.svtprojekat.service.ReactionService;
 
 import java.util.List;
 
@@ -20,6 +23,9 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    ReactionService reactionService;
 
     @Override
     public List<Community> findAllByParent(Community parent) {
@@ -80,6 +86,17 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<Community> findCommunities(String input) {
         return repository.findCommunityByDescriptionContainsOrNameContains(input, input);
+    }
+
+    @Override
+    public Integer getKarma(String communityId) {
+        List<Post> posts = postRepository.findAllByCommunityId(communityId);
+        Integer karma = 0;
+
+        for(Post p : posts) {
+            karma = karma + reactionService.getKarma(p);
+        }
+        return karma;
     }
 
 }

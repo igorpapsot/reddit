@@ -12,7 +12,6 @@ export class Post {
     flair: Flair;
     communityId: string;
     karma : number;
-    user: User;
     username: string;
 
     constructor() {

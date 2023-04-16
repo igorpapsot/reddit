@@ -7,6 +7,7 @@ export class Community {
     suspendedReason: string;
     suspended: boolean;
     numOfPosts: number;
+    karma: number;
 
     constructor() {
         

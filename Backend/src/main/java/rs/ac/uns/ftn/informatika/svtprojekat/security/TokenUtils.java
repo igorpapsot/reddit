@@ -3,9 +3,11 @@ package rs.ac.uns.ftn.informatika.svtprojekat.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import rs.ac.uns.ftn.informatika.svtprojekat.service.UserService;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +15,9 @@ import java.util.Map;
 
 @Component
 public class TokenUtils {
+
+    @Autowired
+    UserService userService;
 
     @Value("biloKojiString")
     private String secret;
@@ -73,6 +78,7 @@ public class TokenUtils {
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("sub", userDetails.getUsername());
         claims.put("role", userDetails.getAuthorities().toArray()[0]);
+        claims.put("id", userService.findUserByUsername(userDetails.getUsername()).getId());
         claims.put("created", new Date(System.currentTimeMillis()));
         return Jwts.builder().setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))

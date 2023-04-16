@@ -34,7 +34,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post findOne(Integer id) { return repository.findById(id).orElse(null); }
+    public Post findOne(String id) { return repository.findById(id); }
 
     @Override
     public List<Post> findAll() {

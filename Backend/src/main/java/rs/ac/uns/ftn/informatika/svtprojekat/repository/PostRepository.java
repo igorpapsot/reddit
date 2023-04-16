@@ -21,4 +21,6 @@ public interface PostRepository extends ElasticsearchRepository<Post, Integer> {
     List<Post> findAllByTitleContains(String title);
 
     List<Post> findPostByTextContainsOrTitleContains(String input, String input2);
+
+    Post findById(String id);
 }
