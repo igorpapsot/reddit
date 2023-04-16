@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.svtprojekat.entity.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Moderator;
 
@@ -28,6 +29,8 @@ public class CommunityDTO implements Serializable {
     private Integer numOfPosts;
 
     private Integer karma;
+
+    private MultipartFile[] files;
 
     public CommunityDTO() {
     }

@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.informatika.svtprojekat.entity.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
 
 import java.io.Serializable;
@@ -28,6 +29,10 @@ public class PostDTO implements Serializable {
     private String username;
 
     private int karma;
+
+    private Integer flairId;
+
+    private MultipartFile[] files;
 
     public PostDTO() {
     }

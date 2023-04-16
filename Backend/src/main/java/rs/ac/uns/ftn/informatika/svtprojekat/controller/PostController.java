@@ -16,6 +16,7 @@ import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTO;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTOandorid;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -184,6 +185,49 @@ public class PostController {
         reaction.setTimestamp(ts);
         reactionService.save(reaction);
         postService.save(post);
+        return new ResponseEntity<>(new PostDTO(post), HttpStatus.CREATED);
+    }
+
+    @Transactional
+    @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
+    @PostMapping(value = "/pdf", consumes = {"multipart/form-data"})
+    public ResponseEntity<PostDTO> postPostWithPdf(@ModelAttribute PostDTO postDTO) throws IOException {
+        Post post = new Post();
+        LocalDate date = LocalDate.now();
+        System.out.println(postDTO.toString());
+
+        post.setFlair(flairService.findOne(postDTO.getFlairId()));
+        post.setCommunityId(postDTO.getCommunityId());
+        if(postDTO.getUserId() == null) {
+            post.setUserId(userService.findUserByUsername(postDTO.getUsername()).getId());
+        }
+        else {
+            post.setUserId(postDTO.getUserId());
+        }
+
+        post.setCreationDate(date);
+        post.setText(postDTO.getText());
+        post.setTitle(postDTO.getTitle());
+        post.setId(postService.getId());
+        post.setFiles(postDTO.getFiles());
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User u = (User) auth.getPrincipal();
+        rs.ac.uns.ftn.informatika.svtprojekat.entity.User user = userService.findUserByUsername(u.getUsername());
+
+        if(post.getText() == null || post.getTitle() == null || post.getFlair() == null ||
+                post.getCommunityId() == null || post.getUserId() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Reaction reaction = new Reaction();
+        LocalDate ts = LocalDate.now();
+        reaction.setPostId(post.getId());
+        reaction.setType(ReactionTypeENUM.UPVOTE);
+        reaction.setUser(user);
+        reaction.setTimestamp(ts);
+        reactionService.save(reaction);
+        postService.indexUploadedFile(post);
         return new ResponseEntity<>(new PostDTO(post), HttpStatus.CREATED);
     }
 

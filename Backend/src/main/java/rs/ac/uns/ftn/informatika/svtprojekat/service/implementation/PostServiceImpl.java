@@ -1,16 +1,25 @@
 package rs.ac.uns.ftn.informatika.svtprojekat.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Reaction;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.ReactionTypeENUM;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTO;
+import rs.ac.uns.ftn.informatika.svtprojekat.lucene.indexing.handlers.PDFHandler;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.PostRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.ReactionRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.PostService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.UserService;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,6 +36,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     UserService userService;
+
+    @Value("${files.path}")
+    private String filesPath;
 
     @Override
     public List<Post> findAllByParent(Post parent) {
@@ -108,6 +120,33 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findPosts(String input) {
         return repository.findPostByTextContainsOrTitleContains(input, input);
+    }
+
+    @Override
+    public void indexUploadedFile(Post post) throws IOException {
+        for (MultipartFile file : post.getFiles()) {
+            if (file.isEmpty()) {
+                continue;
+            }
+
+            String fileName = saveUploadedFileInFolder(file);
+            if(fileName != null){
+                Post postIndexUnit = new PDFHandler().getIndexUnit(new File(fileName));
+                postIndexUnit.setPdfText(post.getPdfText());
+                repository.save(postIndexUnit);
+            }
+        }
+    }
+
+    private String saveUploadedFileInFolder(MultipartFile file) throws IOException {
+        String retVal = null;
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(new File(filesPath).getAbsolutePath() + File.separator + file.getOriginalFilename());
+            Files.write(path, bytes);
+            retVal = path.toString();
+        }
+        return retVal;
     }
 
 }

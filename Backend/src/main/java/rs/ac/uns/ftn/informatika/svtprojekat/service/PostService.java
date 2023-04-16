@@ -2,7 +2,9 @@ package rs.ac.uns.ftn.informatika.svtprojekat.service;
 
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTO;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface PostService {
@@ -30,4 +32,6 @@ public interface PostService {
     List<Post> findByTitle(String name);
 
     List<Post> findPosts(String input);
+
+    void indexUploadedFile(Post post) throws IOException;
 }
