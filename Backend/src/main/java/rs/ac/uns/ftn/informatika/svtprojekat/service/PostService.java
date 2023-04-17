@@ -34,4 +34,6 @@ public interface PostService {
     List<Post> findPosts(String input);
 
     void indexUploadedFile(Post post) throws IOException;
+
+    List<Post> findByPdfText(String text);
 }

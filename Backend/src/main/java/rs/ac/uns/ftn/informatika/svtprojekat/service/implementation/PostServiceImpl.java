@@ -143,6 +143,11 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    @Override
+    public List<Post> findByPdfText(String text) {
+        return repository.findPostByPdfTextContains(text);
+    }
+
     private String saveUploadedFileInFolder(MultipartFile file) throws IOException {
         String retVal = null;
         if (!file.isEmpty()) {

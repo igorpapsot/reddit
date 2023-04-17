@@ -130,6 +130,11 @@ public class CommunityServiceImpl implements CommunityService {
         }
     }
 
+    @Override
+    public List<Community> findByPdfText(String text) {
+        return repository.findCommunityByPdfTextContains(text);
+    }
+
     private String saveUploadedFileInFolder(MultipartFile file) throws IOException {
         String retVal = null;
         if (!file.isEmpty()) {

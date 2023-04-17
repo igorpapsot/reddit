@@ -21,4 +21,6 @@ public interface CommunityRepository extends ElasticsearchRepository<Community, 
 
     List<Community> findCommunityByDescriptionContainsOrNameContains(String input, String input2);
 
+    List<Community> findCommunityByPdfTextContains(String text);
+
 }

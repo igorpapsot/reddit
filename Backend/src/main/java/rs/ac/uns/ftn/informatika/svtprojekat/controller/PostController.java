@@ -88,6 +88,21 @@ public class PostController {
         return new ResponseEntity<>(postsDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/pdf/{text}")
+    public ResponseEntity<List<PostDTO>> findCommunitiesByPdfText(@PathVariable String text){
+        List<Post> posts = postService.findByPdfText(text);
+
+        List<PostDTO> postsDTO = new ArrayList<>();
+        for (Post p : posts) {
+            System.out.println(p.toString());
+            PostDTO post = new PostDTO(p);
+            post.setKarma(reactionService.getKarma(p));
+            postsDTO.add(post);
+        }
+
+        return new ResponseEntity<>(postsDTO, HttpStatus.OK);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<PostDTO>> getPosts() {

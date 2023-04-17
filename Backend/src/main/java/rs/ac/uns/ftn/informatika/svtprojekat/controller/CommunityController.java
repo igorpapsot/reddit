@@ -63,6 +63,15 @@ public class CommunityController {
         return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/pdf/{text}")
+    public ResponseEntity<List<CommunityDTO>> findCommunitiesByPdfText(@PathVariable String text){
+        List<Community> communities = communityService.findByPdfText(text);
+
+        List<CommunityDTO> communitiesDTO = getCommunitiesWithNumOfPosts(communities);
+
+        return new ResponseEntity<>(communitiesDTO, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<CommunityDTO>> getCommunities() {
         List<Community> communities = communityService.findAll();
