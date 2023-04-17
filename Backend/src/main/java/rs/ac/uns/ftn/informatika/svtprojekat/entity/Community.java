@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Setting;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -48,11 +49,9 @@ public class Community implements Serializable {
 
     private String filename;
 
-    //private List<Flair> flairs;
+    private MultipartFile[] files;
 
-    //private Set<Moderator> moderators = new HashSet<Moderator>();
-
-    //private Set<Post> posts = new HashSet<Post>();
-
+    @Field(type = FieldType.Text)
+    private String pdfText;
 
 }

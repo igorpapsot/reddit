@@ -2,6 +2,7 @@ package rs.ac.uns.ftn.informatika.svtprojekat.service;
 
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CommunityService {
@@ -28,4 +29,6 @@ public interface CommunityService {
     List<Community> findCommunities(String input);
 
     Integer getKarma(String communityId);
+
+    void indexUploadedFile(Community community) throws IOException;
 }

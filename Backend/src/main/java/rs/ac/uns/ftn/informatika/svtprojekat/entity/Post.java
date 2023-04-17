@@ -50,5 +50,6 @@ public class Post implements Serializable {
 
     private MultipartFile[] files;
 
+    @Field(type = FieldType.Text)
     private String pdfText;
 }

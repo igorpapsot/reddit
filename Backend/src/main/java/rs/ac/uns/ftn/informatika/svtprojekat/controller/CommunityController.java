@@ -17,6 +17,7 @@ import rs.ac.uns.ftn.informatika.svtprojekat.service.CommunityService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.ModeratorService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.UserService;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,6 +133,38 @@ public class CommunityController {
         }
 
         communityService.save(community);
+        moderatorService.save(moderator);
+        return new ResponseEntity<>(new CommunityDTO(community), HttpStatus.CREATED);
+    }
+
+    @Transactional
+    @PreAuthorize("hasAnyRole('USER', 'ROLE_ADMIN')")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/pdf", consumes = {"multipart/form-data"})
+    public ResponseEntity<CommunityDTO> postCommunityWithPdf(@ModelAttribute CommunityDTO communityDTO) throws IOException {
+        Community community = new Community();
+        Moderator moderator = new Moderator();
+
+        LocalDate date = LocalDate.now();
+
+        community.setDescription(communityDTO.getDescription());
+        community.setName(communityDTO.getName());
+        community.setCreationDate(date.toString());
+        community.setSuspended(false);
+        community.setId(communityService.getId());
+        community.setFiles(communityDTO.getFiles());
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User u = (User) auth.getPrincipal();
+        rs.ac.uns.ftn.informatika.svtprojekat.entity.User user = userService.findUserByUsername(u.getUsername());
+
+        moderator.setCommunityId(community.getId());
+        moderator.setUser(user);
+        if(community.getDescription() == null || community.getName() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        communityService.indexUploadedFile(community);
         moderatorService.save(moderator);
         return new ResponseEntity<>(new CommunityDTO(community), HttpStatus.CREATED);
     }

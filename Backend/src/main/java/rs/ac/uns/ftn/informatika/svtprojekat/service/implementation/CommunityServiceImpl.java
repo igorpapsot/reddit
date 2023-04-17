@@ -1,16 +1,24 @@
 package rs.ac.uns.ftn.informatika.svtprojekat.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Reaction;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.ReactionTypeENUM;
+import rs.ac.uns.ftn.informatika.svtprojekat.lucene.indexing.handlers.PDFHandler;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.CommunityRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.PostRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.CommunityService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.ReactionService;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.elasticsearch.common.UUIDs.base64UUID;
@@ -26,6 +34,9 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Autowired
     ReactionService reactionService;
+
+    @Value("${files.path}")
+    private String filesPath;
 
     @Override
     public List<Community> findAllByParent(Community parent) {
@@ -97,6 +108,37 @@ public class CommunityServiceImpl implements CommunityService {
             karma = karma + reactionService.getKarma(p);
         }
         return karma;
+    }
+
+    @Override
+    public void indexUploadedFile(Community community) throws IOException {
+        for (MultipartFile file : community.getFiles()) {
+            if (file.isEmpty()) {
+                continue;
+            }
+
+            String fileName = saveUploadedFileInFolder(file);
+            if(fileName != null){
+                Community postIndexUnit = new PDFHandler().getIndexUnitCommuntiy(new File(fileName));
+                postIndexUnit.setId(community.getId());
+                postIndexUnit.setName(community.getName());
+                postIndexUnit.setDescription(community.getDescription());
+                postIndexUnit.setCreationDate(community.getCreationDate());
+                postIndexUnit.setSuspended(community.isSuspended());
+                repository.save(postIndexUnit);
+            }
+        }
+    }
+
+    private String saveUploadedFileInFolder(MultipartFile file) throws IOException {
+        String retVal = null;
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(new File(filesPath).getAbsolutePath() + File.separator + file.getOriginalFilename());
+            Files.write(path, bytes);
+            retVal = path.toString();
+        }
+        return retVal;
     }
 
 }

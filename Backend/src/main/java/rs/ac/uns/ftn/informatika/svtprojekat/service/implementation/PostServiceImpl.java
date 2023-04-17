@@ -8,7 +8,6 @@ import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Post;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Reaction;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.ReactionTypeENUM;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTO;
 import rs.ac.uns.ftn.informatika.svtprojekat.lucene.indexing.handlers.PDFHandler;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.PostRepository;
 import rs.ac.uns.ftn.informatika.svtprojekat.repository.ReactionRepository;
@@ -131,8 +130,14 @@ public class PostServiceImpl implements PostService {
 
             String fileName = saveUploadedFileInFolder(file);
             if(fileName != null){
-                Post postIndexUnit = new PDFHandler().getIndexUnit(new File(fileName));
-                postIndexUnit.setPdfText(post.getPdfText());
+                Post postIndexUnit = new PDFHandler().getIndexUnitPost(new File(fileName));
+                postIndexUnit.setTitle(post.getTitle());
+                postIndexUnit.setText(post.getText());
+                postIndexUnit.setCommunityId(post.getCommunityId());
+                postIndexUnit.setFlair(post.getFlair());
+                postIndexUnit.setUserId(post.getUserId());
+                postIndexUnit.setCreationDate(post.getCreationDate());
+                postIndexUnit.setId(post.getId());
                 repository.save(postIndexUnit);
             }
         }
