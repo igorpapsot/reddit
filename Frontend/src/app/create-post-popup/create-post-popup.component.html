@@ -77,8 +77,15 @@
         </div>
 
         <div class="row">
+            <div class="col-md-10 offset-md-1">
+                  <label for="files" class="form-label">Upload file (optional)&nbsp;</label>
+                  <input type="file" class="file-upload" (change)="setEvent($event)" id="files">
+            </div>       
+        </div>
+
+        <div class="row">
           <div class="col-md-10 offset-md-1">
-                <button type="submit" class="btn btn-success btn-block" [disabled]="!postForm.form.valid" (click)="createPost() ; modal.dismiss('Close click');">Create</button>
+                <button type="submit" class="btn btn-success btn-block" [disabled]="!postForm.form.valid" (click)="createPost($event) ; modal.dismiss('Close click');">Create</button>
           </div>
         </div>
 

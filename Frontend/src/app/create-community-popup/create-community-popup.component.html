@@ -12,22 +12,22 @@
       <div class="containter">
         <form #postForm="ngForm">
   
-          <div class="row">
-            <div class="col-md-10 offset-md-1">
-                  <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" required
-                              [(ngModel)]="community.name" name="name"
-                              #name="ngModel">
-                        <div [hidden]="name.valid || !name.touched"
-                              class="alert alert-danger">
-                              Name is required
-                        </div>
+      <div class="row">
+      <div class="col-md-10 offset-md-1">
+            <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" id="name" required
+                        [(ngModel)]="community.name" name="name"
+                        #name="ngModel">
+                  <div [hidden]="name.valid || !name.touched"
+                        class="alert alert-danger">
+                        Name is required
                   </div>
             </div>
-          </div>
+      </div>
+      </div>
   
-          <div class="row">
+      <div class="row">
             <div class="col-md-10 offset-md-1">
                   <div class="form-group">
                         <label for="description">Description</label>
@@ -40,16 +40,23 @@
                         </div>
                   </div>
             </div>
-          </div>
-  
-          <div class="row">
+      </div>
+
+      <div class="row">
             <div class="col-md-10 offset-md-1">
-                  <button type="submit" class="btn btn-success btn-block" [disabled]="!postForm.form.valid" (click)="createCommunity() ; modal.dismiss('Close click');">Create</button>
-            </div>
-          </div>
+                  <label for="files" class="form-label">Upload file (optional)&nbsp;</label>
+                  <input type="file" class="file-upload" (change)="setEvent($event)" id="files">
+            </div>       
+      </div>
+  
+      <div class="row">
+      <div class="col-md-10 offset-md-1">
+            <button type="submit" class="btn btn-success btn-block" [disabled]="!postForm.form.valid" (click)="createCommunity($event) ; modal.dismiss('Close click');">Create</button>
+      </div>
+      </div>
   
         </form>
       </div>
     </div>
-  </ng-template>
+</ng-template>
   

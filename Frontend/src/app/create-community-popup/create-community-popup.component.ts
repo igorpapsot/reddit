@@ -26,13 +26,42 @@ export class CreateCommunityPopupComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' });
   }
 
-  createCommunity() {
-    this.communityService.post(this.community)
-    .subscribe(data => {
-      console.log(data)
-    })
+  createCommunity(event: any | undefined) {
+      if (this.event != undefined) {
+        console.log("1")
+        console.log(event)
+        const file:File = this.event.target.files[0];
+        console.log(file);
+        this.fileName = file.name;
+        const formData = new FormData();
+
+        formData.append("files", file);
+        formData.append("name", this.community.name);
+        formData.append("description", this.community.description);
+        this.communityService.postWithPdf(formData)
+        .subscribe(data => {
+          console.log(data)
+        })
+      }
+
+    else{
+      console.log("2")
+      this.communityService.post(this.community)
+      .subscribe(data => {
+        console.log(data)
+      })
+    }
   }
 
   community: Community = new Community();
+
+  fileName = ''
+
+  setEvent(event: any){
+    this.event = event;
+    console.log(this.event)
+  }
+
+  event: any;
 
 }

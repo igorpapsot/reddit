@@ -31,6 +31,16 @@ export class CommunityService {
       })
     };
   }
+  
+
+  httpOptionsPdf() {
+    return  {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+        "Access-Control-Allow-Methods": 'GET,POST,PATCH,DELETE,PUT,OPTIONS'
+      })
+    };
+  }
 
   communities! : Observable<any[]>;
 
@@ -44,6 +54,10 @@ export class CommunityService {
 
   getCommunitiesByName(name: string) : Observable<any[]> {
     return this.http.get<any[]>(environment.ROOT_URL + "communities/name/" + name);
+  }
+
+  getCommunitiesByPdfText(text: string) : Observable<any[]> {
+    return this.http.get<any[]>(environment.ROOT_URL + "communities/pdf/" + text);
   }
 
   getCommunitiesByNameAndDesc(input: string) : Observable<any[]> {
@@ -67,6 +81,16 @@ export class CommunityService {
     const body=JSON.stringify(community);
     console.log(body)
     return this.http.post<Community>(environment.ROOT_URL + "communities", body, this.httpOptions())
+    .pipe(
+      catchError((err) => {
+        console.error(err);
+        throw err;
+      }) 
+    )
+  }
+
+  postWithPdf(formData : FormData) : Observable<Community>{
+    return this.http.post<Community>(environment.ROOT_URL + "communities/pdf", formData, this.httpOptionsPdf())
     .pipe(
       catchError((err) => {
         console.error(err);

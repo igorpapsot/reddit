@@ -35,16 +35,42 @@ export class CreatePostPopupComponent implements OnInit {
   }
 
 
-  createPost() {
-    this.post.username = this.storeService.username;
-    this.post.userId = this.user.id;
-    this.post.communityId = this.community.id;
-    this.post.flair = this.flair;
+  createPost(event: any | undefined) {
+    if(this.event != undefined) {
+      console.log("1")
+      console.log(event)
+      const file:File = this.event.target.files[0];
+      console.log(file);
+      this.fileName = file.name;
+      const formData = new FormData();
 
-    this.postService.post(this.post)
-    .subscribe(data => {
-      console.log(data)
-    })
+      formData.append("files", file);
+      formData.append("title", this.post.title);
+      formData.append("text", this.post.text);
+      formData.append("flairId", String(this.flair.id));
+      formData.append("userId", String(this.storeService.id));
+      formData.append("communityId", this.community.id);
+      this.postService.postWithPdf(formData)
+      .subscribe(data => {
+        console.log(data)
+      })
+
+    }
+    else{
+            console.log("2")
+      //this.post.username = this.storeService.username;
+      this.post.userId = this.storeService.id;
+      this.post.communityId = this.community.id;
+      this.post.flair = this.flair;
+
+      this.postService.post(this.post)
+      .subscribe(data => {
+        console.log(data)
+      })
+    }
+   
+
+
     
   }
 
@@ -59,5 +85,15 @@ export class CreatePostPopupComponent implements OnInit {
   communities! : Observable<any[]>;
 
   flairs! : Observable<any[]>;
+
+  fileName = ''
+
+  setEvent(event: any){
+    this.event = event;
+    console.log(this.event)
+  }
+
+  event: any;
+
 
 }

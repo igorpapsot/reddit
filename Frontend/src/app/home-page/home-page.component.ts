@@ -27,6 +27,10 @@ export class HomePageComponent implements OnInit {
     this.posts = this.postService.getPostsByText(text);
   }
 
+  getPostsByPdfText(text: string) {
+    this.posts = this.postService.getPostsByPdfText(text);
+  }
+
   getPostsByTextAndTitle(input: string) {
     this.posts = this.postService.getPostsByTextAndTitle(input);
   }

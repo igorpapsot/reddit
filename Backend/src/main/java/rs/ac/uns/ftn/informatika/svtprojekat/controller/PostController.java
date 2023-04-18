@@ -10,10 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.*;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.CommentDTO;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.CommunityDTO;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTO;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.PostDTOandorid;
+import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.*;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.*;
 
 import java.io.IOException;

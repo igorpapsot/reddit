@@ -23,6 +23,15 @@ export class PostService {
     };
   }
 
+  httpOptionsPdf() {
+    return  {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+        "Access-Control-Allow-Methods": 'GET,POST,PATCH,DELETE,PUT,OPTIONS'
+      })
+    };
+  }
+
   httpOptionsReaction() {
     return  {
       headers: new HttpHeaders({
@@ -42,6 +51,10 @@ export class PostService {
     return this.http.get<any[]>(environment.ROOT_URL + "posts/text/" + text);
   }
 
+  getPostsByPdfText(text: string) : Observable<any[]> {
+    return this.http.get<any[]>(environment.ROOT_URL + "posts/pdf/" + text);
+  }
+
   getPostsByTextAndTitle(input: string) : Observable<any[]> {
     return this.http.get<any[]>(environment.ROOT_URL + "posts/find/" + input);
   }
@@ -55,6 +68,17 @@ export class PostService {
     console.log(body)
     console.log(this.httpOptions);
     return this.http.post<Post>(environment.ROOT_URL + "posts", body, this.httpOptions())
+    .pipe(
+      catchError((err) => {
+        console.error(err);
+        throw err;
+      }) 
+    )
+  }
+
+  postWithPdf(formData : FormData) : Observable<Post>{
+    console.log(formData);
+    return this.http.post<Post>(environment.ROOT_URL + "posts/pdf", formData, this.httpOptionsPdf())
     .pipe(
       catchError((err) => {
         console.error(err);

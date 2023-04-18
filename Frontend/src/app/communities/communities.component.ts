@@ -22,6 +22,8 @@ export class CommunitiesComponent implements OnInit {
 
   name: boolean = false;
 
+  pdfText: boolean = false;
+
   searchF() {
     console.log(this.search.input);
     if(this.search.input ==  "" || this.search.input == undefined) {
@@ -39,14 +41,28 @@ export class CommunitiesComponent implements OnInit {
     else if(this.name == true && this.desc == true) {
       this.getCommunitesByNameAndDesc(this.search.input);
     }
+    else if(this.pdfText == true) {
+      this.getCommunitesByPdfText(this.search.input);
+    }
+
   }
 
   toggleDesc() {
-    this.desc = !this.desc
+    if(this.pdfText != true) {
+      this.desc = !this.desc
+    }
   }
 
   toggleName() {
-    this.name = !this.name
+    if(this.pdfText != true) {
+      this.name = !this.name
+    }
+  }
+
+  togglePdfText() {
+    this.name = false;
+    this.desc = false;
+    this.pdfText = !this.pdfText;
   }
   
 
@@ -60,6 +76,10 @@ export class CommunitiesComponent implements OnInit {
 
   getCommunitesByDesc(desc: string) {
     this.communities = this.communityService.getCommunitiesByDescription(desc);
+  }
+
+  getCommunitesByPdfText(text: string) {
+    this.communities = this.communityService.getCommunitiesByPdfText(text);
   }
 
   getCommunitesByNameAndDesc(input: string) {

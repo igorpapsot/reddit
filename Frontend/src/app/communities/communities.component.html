@@ -7,19 +7,26 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li class="dropdown-item" (click) = "toggleDesc()">Description</li>
-        <li class="dropdown-item" (click) = "toggleName()">Name</li>
+        <li class="dropdown-item" (click) = "togglePdfText()">Pdf content</li>
+        <li class="dropdown-item" (click) = "toggleName()">Name</li>    
       </ul>
     </div>
     
-    <div class="col-md-0.5">
+    <div class="col-md-2">
       <button type="button" class="btn btn-primary" (click) = "toggleDesc()" [hidden] = "!desc">
         Description <span class="badge bg-secondary">X</span>
       </button>
     </div>
 
-    <div class="col-md-1">
+    <div class="col-md-2">
       <button type="button" class="btn btn-primary" (click) = "toggleName()" [hidden] = "!name">
         Name <span class="badge bg-secondary">X</span>
+      </button>
+    </div>
+
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary" (click) = "togglePdfText()" [hidden] = "!pdfText">
+        Pdf content <span class="badge bg-secondary">X</span>
       </button>
     </div>
 
@@ -41,7 +48,7 @@
           </div>
 
           <div>
-            <button type="button" class="btn btn-success btn-block" (click)="searchF()" [disabled] = "desc == false && name == false">Search</button>
+            <button type="button" class="btn btn-success btn-block" (click)="searchF()" [disabled] = "desc == false && name == false && pdfText == false">Search</button>
           </div>
         </div>
     </form>    
