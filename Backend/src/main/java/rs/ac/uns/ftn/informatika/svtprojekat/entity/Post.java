@@ -38,7 +38,7 @@ public class Post implements Serializable {
     @Field(type = FieldType.Integer)
     private Integer userId;
 
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Object)
     private Flair flair;
 
     @Field(type = FieldType.Keyword)

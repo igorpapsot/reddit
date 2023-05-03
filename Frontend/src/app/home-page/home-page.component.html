@@ -8,6 +8,7 @@
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li class="dropdown-item" (click) = "toggleTitle()">Title</li>
             <li class="dropdown-item" (click) = "toggleText()">Text</li>
+            <li class="dropdown-item" (click) = "togglePdf()">Pdf text</li>
           </ul>
         </div>
 
@@ -20,6 +21,12 @@
           <div class="col-md-1">
             <button type="button" class="btn btn-primary" (click) = "toggleText()" [hidden] = "!text">
               Text <span class="badge bg-secondary">X</span>
+            </button>
+          </div>
+
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary" (click) = "togglePdf()" [hidden] = "!pdf">
+              Pdf <span class="badge bg-secondary">X</span>
             </button>
           </div>
 
@@ -40,7 +47,7 @@
           </div>
 
           <div>
-            <button type="button" class="btn btn-success btn-block" (click)="searchF()" [disabled] = "title == false && text == false">Search</button>
+            <button type="button" class="btn btn-success btn-block" (click)="searchF()" [disabled] = "title == false && text == false && pdf == false">Search</button>
           </div>
         </div>
     </form>    

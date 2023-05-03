@@ -71,7 +71,7 @@ public class PostController {
     }
 
     @GetMapping("/text/{text}")
-    public ResponseEntity<List<PostDTO>> findCommunitiesByText(@PathVariable String text){
+    public ResponseEntity<List<PostDTO>> findPostsByText(@PathVariable String text){
         List<Post> posts = postService.findByText(text);
 
         List<PostDTO> postsDTO = new ArrayList<>();
@@ -86,7 +86,7 @@ public class PostController {
     }
 
     @GetMapping("/pdf/{text}")
-    public ResponseEntity<List<PostDTO>> findCommunitiesByPdfText(@PathVariable String text){
+    public ResponseEntity<List<PostDTO>> findPostsByPdfText(@PathVariable String text){
         List<Post> posts = postService.findByPdfText(text);
 
         List<PostDTO> postsDTO = new ArrayList<>();

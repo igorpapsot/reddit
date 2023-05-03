@@ -7,7 +7,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.SimpleFSDirectory;
-import rs.ac.uns.ftn.informatika.svtprojekat.lucene.indexing.analysers.SerbianAnalyzer;
+import rs.ac.uns.ftn.informatika.svtprojekat.lucene.indexing.analyzers.SerbianAnalyzer;
 
 import java.io.File;
 import java.io.FileInputStream;

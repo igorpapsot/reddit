@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Community;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.Moderator;
 import rs.ac.uns.ftn.informatika.svtprojekat.entity.dto.CommunityDTO;
-import rs.ac.uns.ftn.informatika.svtprojekat.entity.es.CommunityTextDTO;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.CommunityService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.ModeratorService;
 import rs.ac.uns.ftn.informatika.svtprojekat.service.UserService;

@@ -80,12 +80,12 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<Community> findByText(String text) {
-        return repository.findAllByDescriptionContains(text);
+        return repository.findAllByDescription(text);
     }
 
     @Override
     public List<Community> findByName(String name) {
-        return repository.findAllByNameContains(name);
+        return repository.findAllByName(name);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<Community> findCommunities(String input) {
-        return repository.findCommunityByDescriptionContainsOrNameContains(input, input);
+        return repository.findCommunityByDescriptionOrName(input, input);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<Community> findByPdfText(String text) {
-        return repository.findCommunityByPdfTextContains(text);
+        return repository.findCommunityByPdfText(text);
     }
 
     private String saveUploadedFileInFolder(MultipartFile file) throws IOException {

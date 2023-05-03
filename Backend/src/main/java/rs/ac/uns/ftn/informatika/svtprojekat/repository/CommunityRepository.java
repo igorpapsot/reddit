@@ -15,12 +15,12 @@ public interface CommunityRepository extends ElasticsearchRepository<Community, 
 
     Community findById(String id);
 
-    List<Community> findAllByDescriptionContains(String description);
+    List<Community> findAllByDescription(String description);
 
-    List<Community> findAllByNameContains(String name);
+    List<Community> findAllByName(String name);
 
-    List<Community> findCommunityByDescriptionContainsOrNameContains(String input, String input2);
+    List<Community> findCommunityByDescriptionOrName(String input, String input2);
 
-    List<Community> findCommunityByPdfTextContains(String text);
+    List<Community> findCommunityByPdfText(String text);
 
 }

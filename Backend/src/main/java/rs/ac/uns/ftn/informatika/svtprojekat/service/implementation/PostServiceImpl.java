@@ -108,17 +108,17 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findByText(String text) {
-        return repository.findAllByTextContains(text);
+        return repository.findAllByText(text);
     }
 
     @Override
     public List<Post> findByTitle(String title) {
-        return repository.findAllByTitleContains(title);
+        return repository.findAllByTitle(title);
     }
 
     @Override
     public List<Post> findPosts(String input) {
-        return repository.findPostByTextContainsOrTitleContains(input, input);
+        return repository.findPostByTextOrTitle(input, input);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findByPdfText(String text) {
-        return repository.findPostByPdfTextContains(text);
+        return repository.findPostByPdfText(text);
     }
 
     private String saveUploadedFileInFolder(MultipartFile file) throws IOException {

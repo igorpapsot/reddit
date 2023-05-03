@@ -45,6 +45,8 @@ export class HomePageComponent implements OnInit {
 
   text: boolean = false;
 
+  pdf: boolean = false;
+
   searchF() {
     console.log(this.search.input);
     if(this.search.input ==  "" || this.search.input == undefined) {
@@ -62,14 +64,27 @@ export class HomePageComponent implements OnInit {
     else if(this.text == true && this.title == true) {
       this.getPostsByTextAndTitle(this.search.input);
     }
+    else if(this.pdf == true) {
+      this.getPostsByPdfText(this.search.input);
+    }
   }
 
   toggleText() {
-    this.text = !this.text;
+    if(this.pdf != true) {
+      this.text = !this.text;
+    }
   }
 
   toggleTitle() {
-    this.title = !this.title;
+    if(this.pdf != true) {
+      this.title = !this.title;
+    }
+  }
+
+  togglePdf() {
+    this.text = false;
+    this.title = false;
+    this.pdf = !this.pdf;
   }
   
 }
